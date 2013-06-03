@@ -36,8 +36,11 @@
     -->
     <abstract>
       <t>This document specifies how a child can publish a record in
-      its DNS zone that can be monitored by a parent to indicate that a
-      parent should copy certain records from the child zone.</t>
+      its DNS zone that can indicate that a parental agent may copy
+      certain records from the child zone.  They record may be
+      monitored by a parental agent to either assist in or
+      automatically transferring data between the child and
+      parent.</t>
 
     </abstract>
     <!--
@@ -49,20 +52,30 @@
     <section title="Introduction">
 
       <t>This document specifies how a child can publish a record in
-      its DNS zone that can be monitored by a parent to indicate that a
-      parent should copy certain records from the child zone.</t>
+      its DNS zone that can indicate that a parental agent may copy
+      certain records from the child zone.  They record may be
+      monitored by a parental agent to either assist in or
+      automatically transferring data between the child and
+      parent.</t>
+
+      <t>Some resource records (RRs) in a parent zone are typically
+      expected to be in-sync with the data in the child's zone.  This
+      is currently limited to NS and associated A and AAAA "glue"
+      records.  Additionally, the children frequently have DNSKEY
+      records which require corresponding DS record(s) in the parent.
+      These records are referred to as "delegation records".</t>
 
       <t>It has been traditionally challenging for children to keep
-      certain records within a parent's delegation data current.  This
-      difficult either results from simple operator laziness or the
-      complexities of maintaining a large number of DNS zones.  Either
-      way, having an automated way to update a parent's set of
-      delegation information greatly eases the maintenance burden of a
-      child zone.</t>
+      delegation records within a parent's delegation data current.
+      This difficult usually derives from simple operator laziness or
+      the complexities of maintaining a large number of DNS zones.
+      Having an automated mechanism to update a parent's set of
+      delegation records will greatly ease the maintenance burden of a
+      child zone and improve the robustness of the DNS.</t>
 
       <t>This draft introduces a new RRTYPE ("CSYNC") that indicates
-      which records within a child should be copied into the parent's
-      DNS zone data.</t>
+      which delegation records within a child should be copied into
+      the parent's DNS zone data.</t>
 
       <section title="Requirements notation" anchor="musts">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
@@ -72,50 +85,30 @@
       </section>
     </section>
 
-      <section title="Name Server Types">
-	<t>There are multiple ways in which name servers can be
-	deployed.  Name servers can take on any of the following roles:
-	  <list style="symbols">
-	    <t>Master Servers</t>
-	    <t>Slave Servers</t>
-	    <t>Recursive Servers</t>
-	  </list>
-	</t>
-
-	<t>The management solution SHOULD support all of these types
-	  of name servers as they are all equally important.  Note
-	  that "Recursive Servers" can be further broken down by the
-	  security sub-roles they might implement, as defined in
-	  section 2 of <xref target="RFC4033" />.  These sub-roles are
-	  also important to support within any management
-	  solution.</t>
-
-	<t>As stated earlier, the management of stub resolvers is
-	  considered out of scope for this documents.</t>
-      </section>
-
     <section title="Definition of the CSYNC RRType">
-      <t>The CSYNC RRType contains as its RRData a simple bit-list
-      indicating the DNS RRTypes in the child that should be copied
-      into the parent's DNS delegation records for the child.
-      Children wishing a parent to perform a synchronization MUST
-      publish a CSYNC record at the apex of the child zone.  Parent
-      implementations MAY choose to query child zones for this record
-      and copy the data indicated by the bit field in the RRDATA of
-      the CSYNC record.  Parent's MUST copy and publish either the
-      entire set of child data requested (i.e., all record types
-      indicated along with all of the records for that type) or
-      else parents MUST NOT copy and publish any data at all.  Errors
-      due to unsupported bits or otherwise nonpunishable data SHALL
-      result in no change to the parent zone's delegation information
-      for the child.  Parents MUST ignore a request if multiple CSYNC
-      resource records are found.</t>
+      <t>The CSYNC RRType contains as its RRDATA two components: an
+      SOA serial number and a simple bit-list indicating the DNS
+      RRTypes in the child that should be copied into the parent's DNS
+      delegation records for the child.  Children wishing a parental
+      agent to perform a synchronization MUST publish a CSYNC record
+      at the apex of the child zone.  Parent agent implementations MAY
+      choose to query child zones for this record and copy the data
+      indicated by the bit field in the RRDATA of the CSYNC record
+      according to the procedures listed later.  Parental agent's MUST
+      process the entire set of child data requested (i.e., all record
+      types indicated along with all of the records for that type) or
+      else parent agents MUST NOT process any data records at all.
+      Errors due to unsupported bits or otherwise nonpunishable data
+      SHALL result in no change to the parent zone's delegation
+      information for the child.  Parental agents SHOULD ignore a
+      child's CSYNC RRDATA set if multiple CSYNC resource records are
+      found; only a single CSYNC record should be expected.</t>
 
-      <t>The parent MUST perform DNSSEC validation of the CSYNC RRTYPE
-      data and MUST perform DNSSEC validation of any data to be copied
-      from the child to the parent.  Parents MUST not copy any data if
-      any of the validation results any anything other than Validated
-      (xxx:ref4034).  Parents MUST NOT copy a DS record.</t>
+      <t>The parental agent MUST perform DNSSEC validation of the
+      CSYNC RRTYPE data and MUST perform DNSSEC validation of any data
+      to be copied from the child to the parent.  Parents MUST not
+      process any data if any of the validation results indicate
+      any anything other than "Secure" <xref target="RFC4034" />.</t>
 
       <section title="CSYNC record field values">
       </section>
