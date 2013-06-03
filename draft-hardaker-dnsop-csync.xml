@@ -132,6 +132,14 @@
 	  MUST NOT act on data from zones advertising an SOA serial
 	  number less than this value.  A special value of 0 indicates
 	  that no such restriction is in place.</t>
+
+	  <t>Note that a child zone's current SOA serial number maybe
+	  greater than the number contained in the CSYNC record.  A
+	  child SHOULD update the SOA Serial field in the CSYNC record
+	  every time the data being referenced by the CSYNC record is
+	  changed (e.g. an NS record or associated address record is
+	  changed).  A child MAY choose to update the SOA Serial field
+	  to always match the current SOA serial field.</t>
 	  
 	  <t>Parental agents MAY cache SOA serial numbers from
 	  data they use and refuse to process data from zones older
