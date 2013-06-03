@@ -185,11 +185,48 @@ foo
       <t>This document defines how the following record types may be
       processed if the CSYNC RECORDLIST indicates they should be
       processed.</t>
-      <section title="NS">
+      <section title="The NS type" anchor="ns">
+	<t>The NS type flag indicates that the NS records from the
+	child zone should be copied into the parent's delegation
+	information records for the child.</t>
+
+	<t>NS records found within the child should be copied verbatim
+	and the result should be a matching set of NS records in the
+	parent.  Note: if NS records in the parent's delegation
+	records for the child contain records that have been removed
+	in the child's NS set, then they should be removed in the
+	parent's set as well.</t>
+	</t>
       </section>
-      <section title="A">
-      </section>
-      <section title="AAAA">
+      <section title="The A and AAAA types">
+	<t>The A and AAAA type flags indicates that the A and AAAA,
+	respectively, address glue records for in-bailiwick NS records
+	within the child zone should be copied into the parent's
+	delegation information.</t>
+
+	<t>Queries should be sent by the parental agent to determine
+	the required A and AAAA record addresses for each NS record
+	within a parent's NS delegation record set for the child that
+	are in-bailiwick.  The answers to these queries should be
+	check for DNSSEC "Secure" status and then placed into the
+	parent's delegation record set for the child to become
+	appropriate "glue" records.  Note: only the matching types
+	should be queried.  E.g., if the AAAA bit has not been set,
+	then the AAAA records (if any) in the parent's delegation
+	should remain as is.  If a given address type is set and the
+	child's zone contains no data for that type (as proven by
+	appropriate NSEC or NSEC3 records), then the result in the
+	parent's delegation records for the child should be an empty
+	set.
+	</t>
+
+	<t>The procedure for querying for A and AAAA records MUST
+	occur after the procedure, if required, for querying for NS
+	records as defined in Section <xref target="ns" />.  This
+	ensures that the right set NS records is used as provided by
+	the current NS set of the child.  Note that if the NS flag has
+	not been set, then the existing NS records in the parent's
+	delegation records for the child should be used as-is.</t>
       </section>
     </section>
 
