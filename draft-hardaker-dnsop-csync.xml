@@ -83,6 +83,20 @@
 	  "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
 	  and "OPTIONAL" in this document are to be interpreted as
 	  described in <xref target="RFC2119"/>.</t>
+
+
+	  <t>This document is aimed at the case where there is an
+	  organizational separation of the child and parent.  In this
+	  case there are many different operating situations.  A
+	  common case is the Registrant/ Registrar/Registry
+	  relationship.  In this case the parent consists of Registrar
+	  and Registry, with different rules on what each can do or
+	  not do.  To remain operating model neutral we will use the
+	  neutral word "Parental Agent" as the entity that uses
+	  results of DNS queries to inject delegation changes into the
+	  parent zone.  The entity that inserts the changes in the the
+	  DNS is called "DNS Publisher".</t>
+
       </section>
     </section>
 
@@ -249,6 +263,15 @@ foo
       <t>XXX: Polling frequency thoughts</t>
     </section>
     <section title="Security Considerations">
+    </section>
+    <section title="Acknowledgments">
+      <t>A thank you goes out to Warrent Kumari and Ólafur
+      Guðmundsson, who's work on the CDS record type helped inspire
+      the work in this document, as well as the definition for
+      "Parental Agent" and "DNS Publisher" definitions.  A thank you
+      also goes out to Ed Lewis, who the author held many
+      conversations with about the issues surrounding parent/child
+      relationships and synchronization.</t>
     </section>
   </middle>
   <back>
