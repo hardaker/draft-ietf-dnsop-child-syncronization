@@ -1,0 +1,20 @@
+#!/usr/bin/perl
+
+my $out;
+my $ents;
+while(<>) {
+    $out .= $_;
+
+    if (/\&rfc(\d+);/) {
+	my $num = $1;
+	if (! -f "reference.RFC.$num.xml") {
+	    system("wget -q http://xml.resource.org/public/rfc/bibxml/reference.RFC.$num.xml");
+	}
+	$ents .= "  <!ENTITY rfc$num PUBLIC '' 'reference.RFC.$num.xml'>\n"
+    }
+}
+
+chomp($ents);
+
+$out =~ s/<!ENTITY .*>/$ents/;
+print $out;
