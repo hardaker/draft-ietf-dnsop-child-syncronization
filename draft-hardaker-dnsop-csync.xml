@@ -134,7 +134,9 @@
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |                        SOA Serial                             |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   /                       Type Bit Map                            /
+   |       Flags                   |            Type Bit Map       /
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   /                    Type Bit Map (continued)                   /
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </artwork>
 </figure>
@@ -159,6 +161,23 @@
 	  data they use and refuse to process data from zones older
 	  than the last zone they pulled data from.</t>
 	</section>
+	<section title="The Flags Field">
+	  <t>The Flags field contains 16 bits of flags defining
+	  operations that affect the processing of the CSYNC record.
+	  The flags defined in this document are as follows:
+	  <list>
+	    <t>0x01: "immediate"</t>
+	  </list>
+	  </t>
+	  <t>The definitions for how the flags are to be used can be
+	  found later in Section <xref target="data_processing" />.</t>
+
+	  <t>The remaining flags are reserved for use by future
+	  specifications.  Undefined flags MUST be set to 0 by CSYNC
+	  publishers.  Parental agents MUST not process a CSYNC record
+	  if it contains a 1 value for a flag that is unknown to the
+	  parental agent.</t>
+
         <section title="The Type Bit Map Field">
 	  <t>The Type Bit Map field indicates the record types to be
 	  processed by the parental agent, according to the procedures
@@ -177,6 +196,7 @@
       <section title="The CSYNC Presentation Format">
 	<t>The CSYNC presentation format is as follows:</t>
 	<t>The SOA Serial field is represented as an integer.</t>
+	<t>The Flags field is represented as an integer.</t>
 	<t>The Type Bit Map field is represented as a sequence of RR
 	type mnemonics.  When the mnemonic is not known, the TYPE representation
 	described in <xref target="RFC3597" />, Section 5, MUST be used.</t>
@@ -190,7 +210,7 @@
 
 <figure>
 <artwork>
-foo
+example.com. 3600 IN CSYNC 73 1 A NS AAAA
 </artwork>
 </figure>
 </t>
@@ -201,6 +221,7 @@ foo
 <figure>
 <artwork>
   0x00 0x00 0x00 0x42
+  0x00 0x01
   0x00 0x04 0x60 0x00 0x00 0x08
 </artwork>
 </figure>
@@ -209,6 +230,26 @@ foo
       </section>
     </section>
     <section title="CSYNC Data Processing" anchor="data_processing">
+      <t>The CSYNC data must be processed as an "all or nothing" type
+      operation.  If a parental agent fails to query any of the
+      needed records from the child, the whole operation MUST be aborted.
+      </t>
+
+      <t>Parental agents MAY:
+      <list>
+	<t>Process the CSYNC record immediately after noticing it if
+	the "immediate" flag is set.  If the "immediate" flag is not
+	set, the parental agent MUST not act immediately until the
+	zone administrator approves the operation through an
+	out-of-band mechanism (such as through a web interface).</t>
+
+	<t>Require that the child zone administrator approve the  the
+	operation through an out-of-band mechanism (such as through a
+	web interface).  I.e., a parental agent MAY choose not to
+	support the "immediate" flag.</t>
+      </list>
+      </t>
+
       <t>This document defines how the following record types may be
       processed if the CSYNC RECORDLIST indicates they should be
       processed.</t>
