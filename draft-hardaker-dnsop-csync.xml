@@ -298,12 +298,15 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
       </section>
     </section>
 
+    
     <section title="Operational Considerations">
       <t>XXX: error reporting</t>
       <t>XXX: Parental agent's polling multiple child servers</t>
       <t>XXX: Polling frequency thoughts</t>
     </section>
     <section title="Security Considerations">
+    </section>
+    <section title="IANA Considerations">
     </section>
     <section title="Acknowledgments">
       <t>A thank you goes out to Warrent Kumari and Ólafur
