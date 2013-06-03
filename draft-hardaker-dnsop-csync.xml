@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
   <!ENTITY rfc1034 PUBLIC '' 'reference.RFC.1034.xml'>
+  <!ENTITY rfc3597 PUBLIC '' 'reference.RFC.3597.xml'>
 ]>
 <?rfc strict="yes" ?>
 <?rfc toc="yes" ?>
@@ -86,14 +87,14 @@
     </section>
 
     <section title="Definition of the CSYNC RRType">
-      <t>The CSYNC RRType contains as its RRDATA two components: an
+      <t>The CSYNC RRType contains as its RDATA two components: an
       SOA serial number and a simple bit-list indicating the DNS
       RRTypes in the child that should be copied into the parent's DNS
       delegation records for the child.  Children wishing a parental
       agent to perform a synchronization MUST publish a CSYNC record
       at the apex of the child zone.  Parent agent implementations MAY
       choose to query child zones for this record and copy the data
-      indicated by the bit field in the RRDATA of the CSYNC record
+      indicated by the bit field in the RDATA of the CSYNC record
       according to the procedures listed later.  Parental agent's MUST
       process the entire set of child data requested (i.e., all record
       types indicated along with all of the records for that type) or
@@ -101,7 +102,7 @@
       Errors due to unsupported bits or otherwise nonpunishable data
       SHALL result in no change to the parent zone's delegation
       information for the child.  Parental agents SHOULD ignore a
-      child's CSYNC RRDATA set if multiple CSYNC resource records are
+      child's CSYNC RDATA set if multiple CSYNC resource records are
       found; only a single CSYNC record should be expected.</t>
 
       <t>The parental agent MUST perform DNSSEC validation of the
@@ -111,7 +112,7 @@
       any anything other than "Secure" <xref target="RFC4034" />.</t>
 
       <section title="The CSYNC Resource Record Wire Format">
-	<t>The CSYNC RRDATA consists of the following fields:</t>
+	<t>The CSYNC RDATA consists of the following fields:</t>
 <figure>
 <artwork>
                         1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3
@@ -140,8 +141,44 @@
 	  <t>The Type Bit Map field indicates the record types to be
 	  processed by the parental agent, according to the procedures
 	  in Section <xref target="data_processing" format="counter" />.
-	  </t>
+	  The field is encoded in the same way as the Type Bit
+	  Maps field of the NSEC record, described in <xref
+	  target="RFC4034" />, Section 4.1.2.</t>
 	</section>
+      </section>
+
+      <section title="The CSYNC Presentation Format">
+	<t>The CSYNC presentation format is as follows:</t>
+	<t>The SOA Serial field is represented as an integer.</t>
+	<t>The Type Bit Map field is represented as a sequence of RR
+	type mnemonics.  When the mnemonic is not known, the TYPE representation
+	described in <xref target="RFC3597" />, Section 5, MUST be used.</t>
+      </section>
+
+      <section title="CSYNC RR Example">
+	<t>The following CSYNC RR shows an example entry for
+	"example.com" that indicates the NS, A and AAAA records should
+	be processed for the zone using a minimum SOA serial number of
+	66.
+
+<figure>
+<artwork>
+foo
+</artwork>
+</figure>
+</t>
+
+        <t>The RDATA component of the example CSYNC RR would be
+	encoded on the wire as follows:
+
+<figure>
+<artwork>
+  0x00 0x00 0x00 0x42
+  0x00 0x04 0x60 0x00 0x00 0x08
+</artwork>
+</figure>
+</t>
+
       </section>
 
       <section title="CSYNC Data Processing" anchor="data_processing">
