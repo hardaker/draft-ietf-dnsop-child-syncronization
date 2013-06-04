@@ -414,6 +414,26 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
       the master to query for data.  Child operators should be
       encouraged to make use of this configuration interface.</t>
       </section>
+      <section title="Documented Parental Agent Type Support">
+	<t>Parental agents that support processing CSYNC records
+	SHOULD publicly document the following minimum processing
+	characteristics:
+	<list>
+	  <t>The fact that they support CSYNC processing</t>
+	  <t>The record types they support</t>
+	  <t>The frequency with which they poll clients (which MAY be
+	  configurable by the client)</t>
+	  <t>If they support the "immediate" flag</t>
+	  <t>If they poll a child's
+	  single nameserver, a configured list of
+	  nameservers, or all of the advertised nameservers when
+	  querying records</t>
+	  <t>If they support SOA serial number caching to avoid issues
+	  with regression and/or replay</t>
+	</list>
+      </t>
+
+      </section>
       <section title="Other Considerations">
 	<t>XXX: Discuss complete replacement scenarios and if allowed.</t>
 	<t>XXX: Polling frequency discussion</t>
