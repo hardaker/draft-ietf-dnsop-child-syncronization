@@ -52,6 +52,11 @@
   <middle>
     <section title="Introduction">
 
+      <t>[Up front note: this document is very rough in wording.  It
+      is offered as a starting point to see if there is interest in
+      pursuing the concepts contained herein before significant work
+      is done on wording refinements]</t>
+
       <t>This document specifies how a child can publish a record in
       its DNS zone that can indicate that a parental agent may copy
       certain records from the child zone.  They record may be
