@@ -445,7 +445,10 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
     </section>
     <section title="Security Considerations">
       <t>TBD</t>
-	<t>XXX: discussion on DNSSEC checking requirements.</t>
+      <t>XXX: discussion on DNSSEC checking requirements.</t>
+      <t>XXX: mention that DS records for SEP-bit DNSKEYs being
+      updating by CSYNC records signed by non-SEP bits should be
+      carefully considered before being used.</t>
     </section>
     <section title="IANA Considerations">
       <t>TBD</t>
