@@ -181,15 +181,17 @@
         <section title="The Type Bit Map Field">
 	  <t>The Type Bit Map field indicates the record types to be
 	  processed by the parental agent, according to the procedures
-	  in Section <xref target="data_processing" format="counter" />.
-	  The field is encoded in the same way as the Type Bit
+	  in Section <xref target="data_processing" format="counter"
+	  />.  The field is encoded in the same way as the Type Bit
 	  Maps field of the NSEC record, described in <xref
-	  target="RFC4034" />, Section 4.1.2.</t>  If a bit has been
+ 	  target="RFC4034" />, Section 4.1.2. If a bit has been
 	  set that a parental agent implementation does not
 	  understand, the parental agent MUST NOT act upon the data.
 	  Specifically, a parental agent must not copy data blindly
-	  and a specification must exist that defines how the data
-	  should be processed.
+	  and a specification must exist [insert long debate here over
+	  level of specification required; IMHO: proposed IETF
+	  standard since a bit can only be used once] that defines how
+	  the data should be processed.</t>
 	</section>
       </section>
 
@@ -264,7 +266,6 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
 	records for the child contain records that have been removed
 	in the child's NS set, then they should be removed in the
 	parent's set as well.</t>
-	</t>
       </section>
       <section title="The A and AAAA types">
 	<t>The A and AAAA type flags indicates that the A and AAAA,
@@ -296,8 +297,68 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
 	not been set, then the existing NS records in the parent's
 	delegation records for the child should be used as-is.</t>
       </section>
+      <section title="The DNSKEY type">
+	<t>[Editors note: originally I was going to present this draft
+	with no support for DS records as the CDS draft existed and
+	looked like a mechansim that better covered all the usage
+	cases.  However, I've added this section as a discussion point
+	for another mechansim.  It may not be sufficient and opinions
+	are sought about whether CSYNC is a viable mechansim for DS
+	replacement or not.]</t>
+	<t>The DNSKEY type bit indicates that the DNSKEY records in the
+	child with the SEP bit set and the REVOKE bit cleared should
+	be used to create a new set of DS records for inclusion in the
+	parent's delegation records for the child zone.</t>
+	<t>Queries should be sent to the child zone for all the DNSKEY
+	records within the zone, and DS records should be generated.</t>
+	<t>The DNSKEY type bit MUST NOT be set when the owner/maintainer
+	of the DNSKEY records for a zone that don't contain a set SEP
+	bit is different than the owner/maintainer of the DNSKEY
+	records with the SEP bit set.  Organizationally, if the
+	maintainers of the DNSKEY records used to sign the entire
+	contents of the zone are different than the keys intended for
+	the purpose of a secure-entry-point, it is important than only
+	the maintainers of the SEP bit set DNSKEYs may replace the SEP
+	bit DNSKEYs.</t>
+	<t>Note: this DS change mechansim does not provide the client
+	with the ability to select DS algorithms used in the
+	parent.  The DS type bit should be used instead if both the
+	parent and child wish the child to be able to select the DS
+	algorithm(s) to be used.</t>
+      </section>
+      <section title="The DS type">
+	<t>[Editors note: originally I was going to present this draft
+	with no support for DS records as the CDS draft existed and
+	looked like a mechansim that better covered all the usage
+	cases.  However, I've added this section as a discussion point
+	for another mechansim.  It may not be sufficient and opinions
+	are sought about whether CSYNC is a viable mechansim for DS
+	replacement or not.]</t>
+	<t>The DS type bit indicates that the child has created and
+	published DS records within the child's zone (i.e., below the
+	cut-point) and these records should be copied into the
+	parent's delegation records for the child zone.</t>
+	<t>Queries should be sent to the child zone for all the DS
+	records within the zone, and DS records should found should be
+	copied into the parent zone's delegation records for the child
+	zone.</t>
+	<t>The DS type bit MUST NOT be set when the owner/maintainer
+	of the DNSKEY records for a zone that don't contain a set SEP
+	bit is different than the owner/maintainer of the DNSKEY
+	records with the SEP bit set.  Organizationally, if the
+	maintainers of the DNSKEY records used to sign the entire
+	contents of the zone are different than the keys intended for
+	the purpose of a secure-entry-point, it is important than only
+	the maintainers of the SEP bit set DNSKEYs may replace the SEP
+	bit DNSKEYs.</t>
+	<t>Note: this DS change mechansim does not let the parent
+	select the algorithms for the DS record to be used.  The
+	parent MAY choose not to support the DS type bit if they wish
+	to establish policy for DS algorithm usage within their children's
+	zones.  In this case, the parental agent should support the
+	DNSKEY type bit instead.</t>
+      </section>
     </section>
-
     
     <section title="Operational Considerations">
       <t>There are a number of important things to consider when
@@ -310,7 +371,6 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
 	an update within the parental agent's specified operational
 	window should access the parental agent's log interface to
 	determine why an update failed to be processed.</t>
-      </t>
       </section>
       <section title="Child Nameserver Selection">
       <t>Parental agents will need to poll child nameservers in search
@@ -341,14 +401,18 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
       the master to query for data.  Child operators should be
       encouraged to make use of this configuration interface.</t>
       </section>
-      <t>XXX: Discuss complete replacement scenarios and if allowed.</t>
-      <t>XXX: Polling frequency discussion</t>
+      <section title="Other Considerations">
+	<t>XXX: Discuss complete replacement scenarios and if allowed.</t>
+	<t>XXX: Polling frequency discussion</t>
+	<t>XXX: differences between DS and DNSKEY type bits</t>
+      </section>
+    </section>
     </section>
     <section title="Security Considerations">
-      TBD
+      <t>TBD</t>
     </section>
     <section title="IANA Considerations">
-      TBD
+      <t>TBD</t>
     </section>
     <section title="Acknowledgments">
       <t>A thank you goes out to Warrent Kumari and Ólafur
@@ -359,11 +423,8 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
       conversations with about the issues surrounding parent/child
       relationships and synchronization.</t>
     </section>
-  </middle>
+    </middle>
   <back>
-    <section title="Example Processing">
-      TBD
-    </section>
     <references title="Normative References">
       &rfc2119;
       &rfc3597;
@@ -375,5 +436,8 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
       &rfc4033;
       &rfc4035;
     </references>
+    <section title="Example Processing">
+      <t>TBD</t>
+    </section>
   </back>
 </rfc>
