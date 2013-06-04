@@ -251,6 +251,8 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
 	support the "immediate" flag.</t>
       </list>
       </t>
+      <t>Note: how the approval is done out-of-band is outside the
+      scope of this document and likely parental agent specific.</t>
 
       <t>This document defines how the following record types may be
       processed if the CSYNC RECORDLIST indicates they should be
