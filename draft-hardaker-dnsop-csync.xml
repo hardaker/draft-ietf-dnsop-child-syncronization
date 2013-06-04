@@ -460,7 +460,9 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
       "Parental Agent" and "DNS Publisher" definitions.  A thank you
       also goes out to Ed Lewis, who the author held many
       conversations with about the issues surrounding parent/child
-      relationships and synchronization.</t>
+      relationships and synchronization.  Much of the work in this
+      document is derived from the careful existing analysis of these
+      three esteemed colleagues.</t>
     </section>
     </middle>
   <back>
@@ -476,7 +478,7 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
       &rfc4035;
     </references>
     <section title="Example Processing">
-      <t>TBD</t>
+      <t>TBD: example with timing diagram as processed by a parental agent</t>
     </section>
   </back>
 </rfc>
