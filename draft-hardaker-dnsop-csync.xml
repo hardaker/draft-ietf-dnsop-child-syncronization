@@ -376,7 +376,7 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
 	zones.  In this case, the parental agent should support the
 	DNSKEY type bit instead.</t>
 	<t>Note: this DS change mechansim lets children publish DS
-	records that may point to unpublished DNSKEY records.
+	records that may point to unpublished DNSKEY records.</t>
       </section>
     </section>
     
