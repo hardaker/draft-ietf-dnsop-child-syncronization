@@ -325,6 +325,10 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
 	parent.  The DS type bit should be used instead if both the
 	parent and child wish the child to be able to select the DS
 	algorithm(s) to be used.</t>
+	<t>Note: this DS change mechansim does not let children
+	publish DS records that point to not-yet-published DNSKEYs.
+	Children that wish to do so should use the DS type bit
+	instead, if their parental agent supports it.</t>
       </section>
       <section title="The DS type">
 	<t>[Editors note: originally I was going to present this draft
@@ -351,12 +355,21 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
 	the purpose of a secure-entry-point, it is important than only
 	the maintainers of the SEP bit set DNSKEYs may replace the SEP
 	bit DNSKEYs.</t>
+	<t>Parental agents MUST check that at least one DS record
+	within the new set points to a "secure" DNSSEC-validated
+	DNSKEY record.  IE, updating of the DS record set within the
+	parent zone MUST not be done if the parental agent determines
+	it will no longer be possible to validate the child zone
+	data. [XXX: yes, a discussion is needed about algorithm and
+	other support differences].</t>
 	<t>Note: this DS change mechansim does not let the parent
 	select the algorithms for the DS record to be used.  The
 	parent MAY choose not to support the DS type bit if they wish
 	to establish policy for DS algorithm usage within their children's
 	zones.  In this case, the parental agent should support the
 	DNSKEY type bit instead.</t>
+	<t>Note: this DS change mechansim lets children publish DS
+	records that may point to unpublished DNSKEY records.
       </section>
     </section>
     
@@ -410,6 +423,7 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
     </section>
     <section title="Security Considerations">
       <t>TBD</t>
+	<t>XXX: discussion on DNSSEC checking requirements.</t>
     </section>
     <section title="IANA Considerations">
       <t>TBD</t>
