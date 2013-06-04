@@ -341,11 +341,14 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
       the master to query for data.  Child operators should be
       encouraged to make use of this configuration interface.</t>
       </section>
-      <t>XXX: Polling frequency thoughts</t>
+      <t>XXX: Discuss complete replacement scenarios and if allowed.</t>
+      <t>XXX: Polling frequency discussion</t>
     </section>
     <section title="Security Considerations">
+      TBD
     </section>
     <section title="IANA Considerations">
+      TBD
     </section>
     <section title="Acknowledgments">
       <t>A thank you goes out to Warrent Kumari and Ólafur
@@ -358,6 +361,9 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
     </section>
   </middle>
   <back>
+    <section title="Example Processing">
+      TBD
+    </section>
     <references title="Normative References">
       &rfc2119;
       &rfc3597;
