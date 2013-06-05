@@ -277,6 +277,10 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
 	<t>If the SOA records from results of the first and last steps
 	have different serial numbers, this record set should not be
 	processed.</t>
+
+	<t>See the "Operational Consideration" section (Section <xref
+	target="operational" />) for additional guidance about
+	processing.</t>
       </section>
 
       <section title="CSYNC Record Types">
@@ -427,16 +431,6 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
       same address for CSYNC or other data may not result in a
       consistent set of data due to the use of anycast or sudden data
       synchronization changes within the server.</t>
-
-      <t>To combat part of these issues and minimize the impact of
-      data changes, the SOA record MAY be polled for first, then
-      the CSYNC record followed by any required data.  Finally,
-      polling for the SOA record one last time to determine whether it
-      change between the first poll and the last should verify that
-      the data was not changed while polling was taking place.  This
-      will not, however, account for differences across anyclass
-      changes.  Parental agents MAY choose to use a TCP transport to
-      ensure that a single nameserver instance is being reached.</t>
 
       <t>Parental agents MAY offer a configuration interface to allow
       child operators to specify which name server should be consider
