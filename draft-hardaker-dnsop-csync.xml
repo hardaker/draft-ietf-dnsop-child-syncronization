@@ -266,7 +266,7 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
 	time, a sequence of requests will be needed.  To ensure a
 	single host is being addressed, DNS over TCP SHOULD be used to
 	avoid conversing with multiple nodes at an anycast address.
-	<list type="numbers">
+	<list style="numbers">
 	  <t>Query for the child zone's SOA record</t>
 	  <t>Query for the child zone's CSYNC record</t>
 	  <t>Query for the child zone's data records, as required by
@@ -403,6 +403,14 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
 	DNSKEY type bit instead.</t>
 	<t>Note: this DS change mechansim lets children publish DS
 	records that may point to unpublished DNSKEY records.</t>
+	<t>[Editors note: I'm not sure it's safe to reuse the DS
+	record type here.  Having two different DS sets at a parent
+	and child is questionably safe from a validator's point of
+	view.  It's unclear the effect that it might have on existing
+	deployed code, and it would seem safer to me to publish a new
+	record type, such as the CDS type, for querying child DS
+	records rather than reusing the existing DS type.  Opinions
+	desired.]</t>
       </section>
     </section>
     </section>
