@@ -259,6 +259,28 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
       <t>Note: how the approval is done out-of-band is outside the
       scope of this document and likely parental agent specific.</t>
 
+      <section title="Processing Procedure">
+	<t>The following shows a sequence of steps that SHOULD be used
+	when processing CSYNC records from a child zone.  Because DNS
+	queries are not allowed to pass more than one request at a
+	time, a sequence of requests will be needed.  To ensure a
+	single host is being addressed, DNS over TCP SHOULD be used to
+	avoid conversing with multiple nodes at an anycast address.
+	<list type="numbers">
+	  <t>Query for the child zone's SOA record</t>
+	  <t>Query for the child zone's CSYNC record</t>
+	  <t>Query for the child zone's data records, as required by
+	  the CSYNC record's Type Bit Map field</t>
+	  <t>Query for the child zone's SOA record again</t>
+	</list>
+	</t>
+	<t>If the SOA records from results of the first and last steps
+	have different serial numbers, this record set should not be
+	processed.</t>
+      </section>
+
+      <section title="CSYNC Record Types">
+
       <t>This document defines how the following record types may be
       processed if the CSYNC RECORDLIST indicates they should be
       processed.</t>
@@ -379,8 +401,8 @@ example.com. 3600 IN CSYNC 73 1 A NS AAAA
 	records that may point to unpublished DNSKEY records.</t>
       </section>
     </section>
-    
-    <section title="Operational Considerations">
+    </section>
+    <section title="Operational Considerations" anchor="operational">
       <t>There are a number of important things to consider when
       deploying the usage of the CSYNC RR type.</t>
       <section title="Error Reporting">
