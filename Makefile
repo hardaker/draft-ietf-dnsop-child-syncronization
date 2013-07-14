@@ -1,5 +1,5 @@
 PREFIX=draft-hardaker-dnsop-csync
-VERSION=00
+VERSION=01
 
 #RFC=rfc6168
 
