@@ -291,8 +291,17 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	</list>
 	</t>
 	<t>If the SOA records from the first and last steps have
-	different serial numbers, then this record set should not be
+	different serial numbers, then this CSYNC record set MUST NOT be
 	processed.</t>
+
+	<t>If the SOA serial number(s) are less than the CSYNC
+	record's SOA Serial Field, the record MUST NOT be processed.
+	If state is being kept and the SOA serial number is less than
+	the last time a CSYNC record was processed, this CSYNC record
+	SHOULD NOT be processed.</t>
+
+	<t>If DNSSEC fails to validate all of the data returned as
+	"secure", this CSYNC record MUST NOT be processed.</t>
 
 	<t>See the "Operational Consideration" section (Section <xref
 	target="operational" />) for additional guidance about
@@ -316,6 +325,11 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	in the parent's delegation records for the child contain
 	records that have been removed in the child's NS set, then
 	they should be removed in the parent's set as well.</t>
+
+	<t>Parental agents MAY refuse to perform NS updates if the
+	replacement records fail to meet NS record policies required
+	by the parent zone (e.g. "every child zone must have at least
+	2 NS records").</t>
       </section>
       <section title="The A and AAAA types">
 	<t>The A and AAAA type flags indicates that the A and AAAA,
