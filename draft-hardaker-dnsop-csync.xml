@@ -449,7 +449,7 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	records rather than reusing the existing DS type.  Opinions
 	desired.]</t>
 	<t>[One option would be to publish the DS records at a
-	separate location, such as _ds._dns.example.com]
+	separate location, such as _ds._dns.example.com]</t>
       </section>
     </section>
     </section>
@@ -547,8 +547,5 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
       &rfc4033;
       &rfc4035;
     </references>
-    <section title="Example Processing">
-      <t>TBD: example with timing diagram as processed by a parental agent</t>
-    </section>
   </back>
 </rfc>
