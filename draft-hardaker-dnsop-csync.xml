@@ -238,9 +238,9 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 
 <figure>
 <artwork>
-  0x00 0x00 0x00 0x42                (SOA Serial)
-  0x00 0x01                          (Flags)
-  0x00 0x04 0x60 0x00 0x00 0x08      (Type Bit Map)
+  0x00 0x00 0x00 0x42             (SOA Serial)
+  0x00 0x01                       (Flags [the immediate bit is set])
+  0x00 0x04 0x60 0x00 0x00 0x08   (Type Bit Map)
 </artwork>
 </figure>
 </t>
@@ -248,11 +248,12 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
       </section>
     </section>
     <section title="CSYNC Data Processing" anchor="data_processing">
-      <t>The CSYNC data must be processed as an "all or nothing" type
-      operation.  If a parental agent fails to query for any of the
-      required records from the child, the whole operation MUST be
-      aborted.  (Note that a query resulting in "no records exist" as
-      proven by NSEC or NSEC3 is to be considered successful).
+      <t>The CSYNC record and associated data must be processed as an
+      "all or nothing" operation set.  If a parental agent fails to
+      successfully query for any of the required records, the whole
+      operation MUST be aborted.  (Note that a query resulting in "no
+      records exist" as proven by NSEC or NSEC3 is to be considered
+      successful).
       </t>
 
       <t>Parental agents MAY:
@@ -261,26 +262,28 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	the "immediate" flag is set.  If the "immediate" flag is not
 	set, the parental agent MUST not act until the zone
 	administrator approves the operation through an out-of-band
-	mechanism (such as through a web interface).</t>
+	mechanism (such as through pushing a button via a web interface).</t>
 
 	<t>Require that the child zone administrator approve the
-	operation through an out-of-band mechanism (such as through a
-	web interface).  I.e., a parental agent MAY choose not to
-	support the "immediate" flag.</t>
+	operation through an out-of-band mechanism (such as through
+	pushing a button via a web interface).  I.e., a parental agent
+	MAY choose not to support the "immediate" flag.</t>
       </list>
       </t>
       <t>Note: how the approval is done out-of-band is outside the
-      scope of this document and likely specific to a particular
-      parental agent.</t>
+      scope of this document and is implementation-specific to
+      parental agents.</t>
 
       <section title="Processing Procedure">
 	<t>The following shows a sequence of steps that SHOULD be used
 	when collecting and processing CSYNC records from a child
-	zone.  Because DNS queries are not allowed to contain more than
-	one question at a time, a sequence of requests will be needed.
-	To ensure a single host is being addressed, DNS over TCP
-	SHOULD be used to avoid conversing with multiple nodes at an
-	anycast address.
+	zone.  Because DNS queries are not allowed to contain more
+	than one "question" at a time, a sequence of requests is
+	needed.  When processing a CSYNC transaction request, all DNS
+	queries should be sent to a single authoritative name server
+	for the child zone.  To ensure a single host is being
+	addressed, DNS over TCP SHOULD be used to avoid conversing
+	with multiple nodes at an anycast address.
 	<list style="numbers">
 	  <t>Query for the child zone's SOA record</t>
 	  <t>Query for the child zone's CSYNC record</t>
@@ -290,17 +293,22 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	</list>
 	</t>
 	<t>If the SOA records from the first and last steps have
-	different serial numbers, then this CSYNC record set MUST NOT be
-	processed.</t>
+	different serial numbers, then the CSYNC record obtained in
+	the second set MUST NOT be processed.</t>
 
-	<t>If the SOA serial number(s) are less than the CSYNC
+	<t>If the SOA serial numbers are equal but less than the CSYNC
 	record's SOA Serial Field, the record MUST NOT be processed.
-	If state is being kept and the SOA serial number is less than
-	the last time a CSYNC record was processed, this CSYNC record
-	SHOULD NOT be processed.</t>
+	If state is being kept by the parental agent and the SOA
+	serial number is less than the last time a CSYNC record was
+	processed, this CSYNC record SHOULD NOT be processed.
+	Similarly, if state is being kept by the parental agent and
+	the SOA Serial Field of the CSYNC record is less than the SOA
+	Serial Field of the CSYNC record from last time, then this
+	CSYNC record SHOULD NOT be processed.</t>
 
-	<t>If DNSSEC fails to validate all of the data returned as
-	"secure", this CSYNC record MUST NOT be processed.</t>
+	<t>If DNSSEC fails to validate all of the data returned for
+	these queries as "secure", then this CSYNC record MUST NOT be
+	processed.</t>
 
 	<t>See the "Operational Consideration" section (Section <xref
 	target="operational" />) for additional guidance about
@@ -320,7 +328,9 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 
 	<t>NS records found within the child's zone should be copied
 	verbatim and the result published within the parent zone
-	should be a matching set of NS records.  Note: if NS records
+	should be an exact matching set of NS records. If the child
+	has published a new NS record within their set, this record
+	should be added to the parent zone.  Similarly, if NS records
 	in the parent's delegation records for the child contain
 	records that have been removed in the child's NS set, then
 	they should be removed in the parent's set as well.</t>
@@ -353,102 +363,12 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	occur after the procedure, if required, for querying for NS
 	records as defined in Section <xref target="ns" />.  This
 	ensures that the right set NS records is used as provided by
-	the current NS set of the child.  I.e, for CSYNC records
-	that have the NS bit set, the NS set used should be the ones
-	pulled from the child during processing.  For CSYNC records
-	without the NS bit set, the existing NS records within the
-	parent should be used to determine which A and/or AAAA records
-	to search for.</t>
-      </section>
-      <section title="The DNSKEY type">
-	<t>[Editors note: originally I was going to present this draft
-	with no support for DS records as the CDS draft existed and
-	looked like a mechansim that better covered all the DS
-	specific usage cases.  However, I've added this section as a
-	discussion point for another mechansim based on conversations
-	with IETF members.  CSYNC may or may not be sufficient and
-	opinions are sought about whether CSYNC is a viable mechansim
-	for DS replacement or not.]</t>
-	<t>The DNSKEY type bit indicates that the DNSKEY records in the
-	child with the SEP bit set and the REVOKE bit cleared should
-	be used to create a new set of DS records for inclusion in the
-	parent's delegation records for the child zone.</t>
-	<t>A query should be sent to the child zone to obtain all the
-	DNSKEY records within the zone, and DS records should be
-	generated for the appropriate keys.</t>
-	<t>The DNSKEY type bit MUST NOT be set when the
-	owner/maintainer of the DNSKEY records for a zone that don't
-	contain a set SEP bit is different than the owner/maintainer
-	of the DNSKEY records with the SEP bit set.  Organizationally,
-	if the maintainers of the DNSKEY records used to sign the
-	entire contents of the zone are different than the keys
-	intended for the purpose of a secure-entry-point, it is
-	important than only the maintainers of the SEP bit set of
-	DNSKEYs may replace pointers to the SEP bit set of DNSKEYs.</t>
-	<t>Note: this DS change mechansim does not provide the client
-	with the ability to select (in-band) the DS algorithms used in
-	the parent.  The DS type bit should be used instead if both
-	the parent and child wish the child to be able to select the
-	DS algorithm(s) to be used.  Children that wish to do so
-	should use the DS type bit instead, if their parental agent
-	supports it.</t>
-	<t>Note: this DS change mechansim does not let children
-	publish DS records that point to not-yet-published DNSKEYs.
-	Children that wish to do so should use the DS type bit
-	instead, if their parental agent supports it.</t>
-      </section>
-      <section title="The DS type">
-	<t>[Editors note: originally I was going to present this draft
-	with no support for DS records as the CDS draft existed and
-	looked like a mechansim that better covered all the DS
-	specific usage cases.  However, I've added this section as a
-	discussion point for another mechansim based on conversations
-	with IETF members.  CSYNC may or may not be sufficient and
-	opinions are sought about whether CSYNC is a viable mechansim
-	for DS replacement or not.]</t>
-	<t>The DS type bit indicates that the child has created and
-	published DS records within the child's zone (i.e., below the
-	cut-point) and these records should be copied into the
-	parent's delegation records for the child zone.</t>
-	<t>A query should be sent to the child zone to obtain all the
-	DS records within the zone, and the DS records should found
-	should be copied into the parent zone's delegation records for
-	the child zone.</t>
-	<t>The DNSKEY type bit MUST NOT be set when the
-	owner/maintainer of the DNSKEY records for a zone that don't
-	contain a set SEP bit is different than the owner/maintainer
-	of the DNSKEY records with the SEP bit set.  Organizationally,
-	if the maintainers of the DNSKEY records used to sign the
-	entire contents of the zone are different than the keys
-	intended for the purpose of a secure-entry-point, it is
-	important than only the maintainers of the SEP bit set of
-	DNSKEYs may replace pointers to the SEP bit set of DNSKEYs.</t>
-	<t>Parental agents MUST check that at least one of the
-	to-be-published DS records within the new set points to a
-	"secure" DNSSEC-validated DNSKEY record.  IE, updating of the
-	DS record set within the parent zone MUST not be done if the
-	parental agent determines it will no longer be possible to
-	validate the zone data within the child. [XXX: yes, a
-	discussion is needed about algorithm and other support
-	differences].</t>
-	<t>Note: this DS change mechansim does not let the parent
-	select the algorithms for the DS record to be used.  The
-	parent MAY choose not to support the DS type bit if they wish
-	to establish policy for DS algorithm usage within their children's
-	zones.  In this case, the parental agent should support the
-	DNSKEY type bit instead.</t>
-	<t>Note: this DS change mechansim lets children publish DS
-	records that may point to unpublished DNSKEY records.</t>
-	<t>[Editors note: I'm not sure it's safe to reuse the DS
-	record type here.  Having two different DS sets at a parent
-	and child is questionably safe from a validator's point of
-	view.  It's unclear the effect that it might have on existing
-	deployed code, and it would seem safer to me to publish a new
-	record type, such as the CDS type, for querying child DS
-	records rather than reusing the existing DS type.  Opinions
-	desired.]</t>
-	<t>[One option would be to publish the DS records at a
-	separate location, such as _ds._dns.example.com]</t>
+	the current NS set of the child.  I.e, for CSYNC records that
+	have the NS bit set, the NS set used should be the ones pulled
+	from the child while processing the CSYNC record.  For CSYNC
+	records without the NS bit set, the existing NS records within
+	the parent should be used to determine which A and/or AAAA
+	records to update.</t>
       </section>
     </section>
     </section>
