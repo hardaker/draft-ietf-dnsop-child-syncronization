@@ -37,11 +37,11 @@
     -->
     <abstract>
       <t>This document specifies how a child zone in the DNS can
-      publish a record that can indicate that a parental agent may
+      publish a record to indicate to a parental agent that it may
       copy and process certain records from the child zone.  The
       existence and change of the record may be monitored by a
-      parental agent to either assist in transferring or automatically
-      transfer data from the child to the parent.</t>
+      parental agent, after which the parent may act on the data
+      appropriately.</t>
     </abstract>
     <!--
     <note ...>
@@ -51,38 +51,33 @@
   <middle>
     <section title="Introduction">
 
-      <t>[Up front note: this document is very rough in wording.  It
-      is offered as a starting point to see if there is interest in
-      pursuing the concepts contained herein before significant work
-      is done on wording refinements]</t>
-
       <t>This document specifies how a child zone in the DNS can
-      publish a record that can indicate that a parental agent may
+      publish a record to indicate to a parental agent that it may
       copy and process certain records from the child zone.  The
       existence and change of the record may be monitored by a
-      parental agent to either assist in transferring or automatically
-      transfer data from the child to the parent.</t>
+      parental agent, after which the parent may act on the data
+      appropriately.</t>
 
       <t>Some resource records (RRs) in a parent zone are typically
-      expected to be in-sync with the data in the child's zone.  The
-      most common records that should match are the nameserver (NS)
-      records and any necessary associated address (A and AAAA) "glue"
-      records.  Additionally, the children frequently have DNSKEY
-      records which require corresponding DS record(s) in the parent.
-      These records are referred to as "delegation records".</t>
+      expected to be in-sync with the source data in the child's zone.
+      The most common records, to date, that should match are the
+      nameserver (NS) records and any necessary associated address
+      "glue" records (A and AAAA).  These records are referred to as
+      "delegation records".</t>
 
-      <t>It has been traditionally challenging for children to keep
-      delegation records within a parent's delegation record set up to
-      date.  This difficult has usually derived from simple operator
-      laziness or the complexities of maintaining a large number of
-      DNS zones.  Having an automated mechanism to update a parent's
-      set of delegation records will greatly ease the child zone
-      operator's maintenance burden and improve the robustness of the
-      DNS as a whole.</t>
+      <t>It has been traditionally challenging for children to update
+      their delegation records within the parent's set in a timely
+      fashion.  This difficulty is frequently from simple operator
+      laziness or because of the complexities of maintaining a large
+      number of DNS zones.  Having an automated mechanism for
+      signaling updates will greatly ease the child zone operator's
+      maintenance burden and improve the robustness of the DNS as a
+      whole.</t>
 
       <t>This draft introduces a new RR type (RRType) named "CSYNC"
-      that indicates which delegation records within a child should be
-      processed into the parent's DNS zone data.</t>
+      that indicates which delegation records published by a child
+      should be processed by a parental agent and used to update the
+      parent zone's DNS data.</t>
 
       <section title="Terminology Used in This Document" anchor="musts">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
@@ -94,14 +89,15 @@
 	  <t>This document is aimed at the case where there is an
 	  organizational separation of the child and parent.  In this
 	  case there are many different operating situations.  A
-	  common case is the Registrant/ Registrar/Registry
-	  relationship.  In this case the parent consists of Registrar
-	  and Registry, with different rules on what each can do or
-	  not do.  To remain operating model neutral we will use the
-	  neutral word "Parental Agent" as the entity that uses
-	  results of DNS queries to inject delegation changes into the
-	  parent zone.  The entity that inserts the changes in the the
-	  DNS is called "DNS Publisher".</t>
+	  common case is the Registrant/Registrar/Registry
+	  relationship, used by many Top Level Domains in the DNS.  In
+	  this case, the parent consists of Registrar and Registry,
+	  with different rules about what each can do or not do.  To
+	  remain operating model neutral we will use the neutral word
+	  "Parental Agent" as the entity that uses results of DNS
+	  queries discussed in this document to update the delegation
+	  records into the parent zone.  The entity that performs the
+	  changes in the the DNS is called "DNS Publisher".</t>
 
       </section>
     </section>
@@ -110,31 +106,33 @@
       <t>The CSYNC RRType contains, in its RDATA component, these
       parts: an SOA serial number, a set of flags and a simple
       bit-list indicating the DNS RRTypes in the child that should be
-      processed by the parent agent to modify the DNS delegation
-      records for the child within the parent's zone.  Children
-      wanting a parental agent to perform a synchronization MUST
-      publish a CSYNC record at the apex of the child zone.  Parent
-      agent implementations MAY choose to query child zones for this
-      record and process the data indicated by the Type Bit Map field
-      in the RDATA of the CSYNC record.  How the data is processed is
-      later described in Section <xref target="data_processing" />.</t>
+      processed by the parental agent in order to modify the DNS
+      delegation records for the child within the parent's zone.
+      Children wanting a parental agent to perform the synchronization
+      steps outlined in this document MUST publish a CSYNC record at
+      the apex of the child zone.  Parental agent implementations MAY
+      choose to query child zones for this record and process DNS
+      record data as indicated by the Type Bit Map field in the RDATA
+      of the CSYNC record.  How the data is processed is described
+      later in Section <xref target="data_processing" />.</t>
       
       <t>Parental agents MUST process the entire set of child data
-      requested (i.e., all record types indicated along with all of
-      the necessary records to support processing of that type) or
-      else parent agents MUST NOT process any data records at all.
-      Errors due to unsupported Type Bit Map bits or otherwise
-      nonpunishable data SHALL result in no change to the parent
-      zone's delegation information for the child.  Parental agents
-      SHOULD ignore a child's CSYNC RDATA set if multiple CSYNC
-      resource records are found; only a single CSYNC record should be
-      expected.</t>
+      indicated by the Type Bit Map field (i.e., all record types
+      indicated along with all of the necessary records to support
+      processing of that type) or else parental agents MUST NOT make
+      any changes to parental records at all.  Errors due to
+      unsupported Type Bit Map bits or otherwise nonpunishable data
+      SHALL result in no change to the parent zone's delegation
+      information for the child.  Parental agents MUST ignore a
+      child's CSYNC RDATA set if multiple CSYNC resource records are
+      found; only a single CSYNC record should ever be expected.</t>
 
       <t>The parental agent MUST perform DNSSEC validation of the
       CSYNC RRType data and MUST perform DNSSEC validation of any data
       to be copied from the child to the parent.  Parents MUST not
-      process any data if any of the validation results indicate
-      any anything other than "Secure" <xref target="RFC4034" />.</t>
+      process any data from any of these records if any of the
+      validation results indicate any anything other than "Secure"
+      <xref target="RFC4034" />.</t>
 
       <section title="The CSYNC Resource Record Format">
 	<section title="The CSYNC Resource Record Wire Format">
@@ -156,13 +154,13 @@
         <section title="The SOA Serial Field">
 	  <t>The SOA Serial field contains a copy of the 32-bit SOA serial
 	  number from the child zone.  If the value is non-zero,
-	  parental agent querying children's authoritative servers
+	  parental agents querying children's authoritative servers
 	  MUST NOT act on data from zones advertising an SOA serial
 	  number less than this value.  A special value of 0 indicates
 	  that no such restriction is in place.</t>
 
-	  <t>Note that a child zone's current SOA serial number maybe
-	  greater than the number contained in the CSYNC record.  A
+	  <t>Note that a child zone's current SOA serial number may be
+	  greater than the number indicated by the CSYNC record.  A
 	  child SHOULD update the SOA Serial field in the CSYNC record
 	  every time the data being referenced by the CSYNC record is
 	  changed (e.g. an NS record or associated address record is
@@ -198,12 +196,11 @@
 	  field of the NSEC record, described in <xref
 	  target="RFC4034" />, Section 4.1.2. If a bit has been set
 	  that a parental agent implementation does not understand,
-	  the parental agent MUST NOT act upon the data.
-	  Specifically, a parental agent must not copy data blindly;
-	  A specification must exist [insert long debate here over
-	  level of specification required; IMHO: proposed IETF
-	  standard since a bit can only be used once] that defines how
-	  the data should be processed for a given bit.</t>
+	  the parental agent MUST NOT act upon the record.
+	  Specifically: a parental agent must not copy data blindly;
+	  An IETF proposed (or higher) standard specification must
+	  exist that defines how the data should be processed for a
+	  given bit.</t>
 	</section>
 	</section>
 	</section>
@@ -213,9 +210,11 @@
 	  <t>The SOA Serial field is represented as an integer.</t>
 	  <t>The Flags field is represented as an integer.</t>
 	  <t>The Type Bit Map field is represented as a sequence of RR
-	  type mnemonics.  When the mnemonic is not known, the TYPE representation
-	  described in <xref target="RFC3597" />, Section 5, MUST be
-	  used.</t>
+	  type mnemonics.  When the mnemonic is not known, the TYPE
+	  representation described in <xref target="RFC3597" />,
+	  Section 5, MUST be used.  Implementations that support
+	  parsing of presentation format records SHOULD be able to
+	  read and understand these TYPE representations as well.</t>
 	</list>
 	</t>
       </section>
