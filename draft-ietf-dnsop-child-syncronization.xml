@@ -10,7 +10,7 @@
 <?rfc symrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc category="std" ipr="trust200902" docName="draft-hardaker-dnsop-csync-FILLVERSION">
+<rfc category="std" ipr="trust200902" docName="draft-ietf-dnsop-child-syncronization-FILLVERSION">
     <front>
     <title abbrev="Child To Parent Synchronization in DNS">
       Child To Parent Synchronization in DNS

@@ -1,5 +1,5 @@
-PREFIX=draft-hardaker-dnsop-csync
-VERSION=02
+PREFIX=draft-ietf-dnsop-child-syncronization
+VERSION=00
 
 #RFC=rfc6168
 
