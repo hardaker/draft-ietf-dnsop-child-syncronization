@@ -80,14 +80,14 @@
       should be processed by a parental agent and used to update the
       parent zone's DNS data.</t>
 
-      <t>This specification does not address how to perform
-      bootstrapping operations to get the required initial
-      DNSSEC-secured operating environment in place.  Additionally,
-      this specification was not designed to synchronize DNSSEC
-      security records, such as DS pointers.  For such a
-      solution, please see the complimentary solution <xref
-      target="I-D.kumari-ogud-dnsop-cds" /> for
-      maintaining security delegation information.</t>
+      <t>This specification was not designed to synchronize DNSSEC
+      security records, such as DS RRsets. For such a solution, see
+      the complimentary solution <xref
+      target="I-D.kumari-ogud-dnsop-cds" /> for maintaining security
+      delegation information. In addition, this specification does not
+      address how to perform bootstrapping operations, including to
+      get the required initial DNSSEC-secured operating environment in
+      place.</t>
 
       <section title="Terminology Used in This Document" anchor="musts">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
@@ -459,15 +459,16 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
       <t>TBD</t>
     </section>
     <section title="Acknowledgments">
-      <t>A thank you goes out to Warren Kumari and Ólafur
-      Guðmundsson, who's work on the CDS record type helped inspire
-      the work in this document, as well as the definition for
-      "Parental Agent" and "DNS Publisher" definitions.  A thank you
-      also goes out to Ed Lewis, who the author held many
-      conversations with about the issues surrounding parent/child
-      relationships and synchronization.  Much of the work in this
-      document is derived from the careful existing analysis of these
-      three esteemed colleagues.</t>
+      <t>A thank you goes out to Warren Kumari and Ólafur Guðmundsson,
+      who's work on the CDS record type helped inspire the work in
+      this document, as well as the definition for "Parental Agent"
+      and "DNS Publisher" definitions.  A thank you also goes out to
+      Ed Lewis, who the author held many conversations with about the
+      issues surrounding parent/child relationships and
+      synchronization.  Much of the work in this document is derived
+      from the careful existing analysis of these three esteemed
+      colleagues.  Thank you to the following people who have
+      contributed text to the document: Matthijs Mekking.</t>
 
       <t>A special thanks goes to Roy Arends, for taking the "bite out
       of that hamburger" challenge while discussing this document.</t>
