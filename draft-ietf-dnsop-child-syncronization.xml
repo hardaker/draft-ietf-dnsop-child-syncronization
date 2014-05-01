@@ -107,8 +107,7 @@
 	  remain operating model neutral we will use the neutral word
 	  "Parental Agent" as the entity that uses results of DNS
 	  queries discussed in this document to update the delegation
-	  records into the parent zone.  The entity that performs the
-	  changes in the the DNS is called "DNS Publisher".</t>
+	  records into the parent zone.</t>
 
       </section>
     </section>
@@ -463,14 +462,14 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
     <section title="Acknowledgments">
       <t>A thank you goes out to Warren Kumari and Ólafur Guðmundsson,
       who's work on the CDS record type helped inspire the work in
-      this document, as well as the definition for "Parental Agent"
-      and "DNS Publisher" definitions.  A thank you also goes out to
+      this document, as well as the definition for the "Parental Agent"
+      definition.  A thank you also goes out to
       Ed Lewis, who the author held many conversations with about the
       issues surrounding parent/child relationships and
       synchronization.  Much of the work in this document is derived
       from the careful existing analysis of these three esteemed
       colleagues.  Thank you to the following people who have
-      contributed text to the document: Matthijs Mekking.</t>
+      contributed text to the document: Matthijs Mekking and Petr Spacek.</t>
 
       <t>A special thanks goes to Roy Arends, for taking the "bite out
       of that hamburger" challenge while discussing this document.</t>
