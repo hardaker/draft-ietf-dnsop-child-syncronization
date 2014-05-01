@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
   <!ENTITY rfc1034 PUBLIC '' 'reference.RFC.1034.xml'>
+  <!ENTITY rfc1982 PUBLIC '' 'reference.RFC.1982.xml'>
   <!ENTITY rfc3597 PUBLIC '' 'reference.RFC.3597.xml'>
   <!ENTITY I-D.kumari-ogud-dnsop-cds SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.kumari-ogud-dnsop-cds.xml">
 ]>
@@ -307,7 +308,8 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	the second set MUST NOT be processed.</t>
 
 	<t>If the SOA serial numbers are equal but less than the CSYNC
-	record's SOA Serial Field, the record MUST NOT be processed.
+	record's SOA Serial Field <xref target="RFC1982" />,
+	the record MUST NOT be processed.
 	If state is being kept by the parental agent and the SOA
 	serial number is less than the last time a CSYNC record was
 	processed, this CSYNC record SHOULD NOT be processed.
@@ -476,6 +478,7 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
     </middle>
   <back>
     <references title="Normative References">
+      &rfc1982;
       &rfc2119;
       &rfc3597;
       &rfc4034;
