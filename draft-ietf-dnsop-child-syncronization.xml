@@ -329,7 +329,7 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
       <section title="CSYNC Record Types">
 
       <t>This document defines how the following record types may be
-      processed if the CSYNC Type Bit Map field indicates they should
+      processed if the CSYNC Type Bit Map field indicates they are to
       be processed.</t>
 
       <section title="The NS type" anchor="ns">
