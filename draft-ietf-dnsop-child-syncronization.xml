@@ -374,7 +374,7 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	occur after the procedure, if required, for querying for NS
 	records as defined in Section <xref target="ns" />.  This
 	ensures that the right set NS records is used as provided by
-	the current NS set of the child.  I.e, for CSYNC records that
+	the current NS set of the child.  I.e., for CSYNC records that
 	have the NS bit set, the NS set used should be the ones pulled
 	from the child while processing the CSYNC record.  For CSYNC
 	records without the NS bit set, the existing NS records within
