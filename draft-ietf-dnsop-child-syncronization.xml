@@ -419,6 +419,9 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
       the master to send data queries too.  This master may not be one
       of the publically listed nameservers in the NS set (i.e., it may
       be a "hidden master").</t>
+
+      <t>Parental agents MAY offer a programmatic interface to let children
+      indicate that new CSYNC records and data are available for polling.</t>
       </section>
       <section title="Documented Parental Agent Type Support">
 	<t>Parental agents that support processing CSYNC records
