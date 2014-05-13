@@ -170,12 +170,15 @@
 </figure>
 
         <section title="The SOA Serial Field">
-	  <t>The SOA Serial field contains a copy of the 32-bit SOA serial
-	  number from the child zone.  If the value is non-zero,
-	  parental agents querying children's authoritative servers
-	  MUST NOT act on data from zones advertising an SOA serial
-	  number less than this value.  A special value of 0 indicates
-	  that no such restriction is in place.</t>
+	  <t>The SOA Serial field contains a copy of the 32-bit SOA
+	  serial number from the child zone.  If the soamin flag is
+	  set, parental agents querying children's authoritative
+	  servers MUST NOT act on data from zones advertising an SOA
+	  serial number less than this value.  See <xref
+	  target="RFC1982" /> for properly implementing "less than"
+	  logic.  If the soamin flag is not set, parental agents MUST
+	  ignore the value in the SOA Serial Field.  Clients can set
+	  the field to any value, such as zero.</t>
 
 	  <t>Note that a child zone's current SOA serial number may be
 	  greater than the number indicated by the CSYNC record.  A
@@ -195,6 +198,7 @@
 	  The flags defined in this document are as follows:
 	  <list>
 	    <t>0x00 0x01: "immediate"</t>
+	    <t>0x00 0x02: ""</t>
 	  </list>
 	  </t>
 	  <t>The definitions for how the flags are to be used can be
