@@ -445,9 +445,6 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
       </t>
 
       </section>
-      <section title="Other Considerations">
-	<t>XXX: Discuss complete replacement scenarios and if allowed.</t>
-      </section>
     </section>
     <section title="Security Considerations">
       <t>This specification requires the use of DNSSEC in order to
