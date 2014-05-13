@@ -405,6 +405,7 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	the parental agent's error logging interface to determine why
 	an update failed to be processed.</t>
       </section>
+
       <section title="Child Nameserver Selection">
       <t>Parental agents will need to poll child nameservers in search
       of CSYNC records and related data records.</t>
@@ -423,6 +424,26 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
       <t>Parental agents MAY offer a programmatic interface to let children
       indicate that new CSYNC records and data are available for polling.</t>
       </section>
+
+      <section title="Out-of-balliwick NS Records">
+	<t>When a zone contains NS records where the domain-name
+	pointed at does not fall within the zone itself, there is no
+	way for the parent to safely update the associated glue
+	records.  Thus, the child DNS operator MAY indicate that the
+	NS records should be synchronized, and may set any glue record
+	flags (A, AAAA) as well, but the parent will only update those
+	glue records which are below the child's delegation point.</t>
+
+	<t>
+	Children deploying NS records pointing to domain-names within
+	their own children (the "grandchildren") SHOULD ensure the
+	grandchildren's associated glue records are properly set
+	before publishing the CSYNC record.  I.E., it is imperative
+	that proper communication of synchronization efforts exist
+	between the child and the grandchild.
+	</t>
+      </section>
+
       <section title="Documented Parental Agent Type Support">
 	<t>Parental agents that support processing CSYNC records
 	SHOULD publicly document the following minimum processing
