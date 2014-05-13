@@ -67,7 +67,7 @@
       "glue" records (A and AAAA).  These records are referred to as
       "delegation records".</t>
 
-      <t>It has been traditionally challenging for children to update
+      <t>It has been traditionally challenging for child DNS operators to update
       their delegation records within the parent's set in a timely
       fashion.  This difficulty is frequently from simple operator
       laziness or because of the complexities of maintaining a large
@@ -77,7 +77,7 @@
       whole.</t>
 
       <t>This draft introduces a new RR type (RRType) named "CSYNC"
-      that indicates which delegation records published by a child
+      that indicates which delegation records published by a child DNS operator
       should be processed by a parental agent and used to update the
       parent zone's DNS data.</t>
 
@@ -91,24 +91,31 @@
       place.</t>
 
       <section title="Terminology Used in This Document" anchor="musts">
+	<t>The terminology used in this document is defined in this section.</t>
+
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
 	  "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
 	  and "OPTIONAL" in this document are to be interpreted as
 	  described in <xref target="RFC2119"/>.</t>
 
+	<t>Terminology describing relationships between the
+	interacting roles involved in this document are defined in
+	the following list: 
 
-	  <t>This document is aimed at the case where there is an
-	  organizational separation of the child and parent.  In this
-	  case there are many different operating situations.  A
-	  common case is the Registrant/Registrar/Registry
-	  relationship, used by many Top Level Domains in the DNS.  In
-	  this case, the parent consists of Registrar and Registry,
-	  with different rules about what each can do or not do.  To
-	  remain operating model neutral we will use the neutral word
-	  "Parental Agent" as the entity that uses results of DNS
-	  queries discussed in this document to update the delegation
-	  records into the parent zone.</t>
+	<list style="hanging">
+		<t hangText="Child:">  The entity on record that has the delegation of the domain
+		from the parent</t>
 
+		<t hangText="Parent:">  The domain in which the child is registered</t>
+
+		<t hangText="Child DNS operator:">  The entity that maintains and publishes the
+		zone information for the child DNS</t>
+
+		<t hangText="Parental agent:">  The entity that the child has relationship with,
+		to change its delegation information</t>
+
+        </list>
+	</t>
       </section>
     </section>
 
@@ -117,14 +124,15 @@
       parts: an SOA serial number, a set of flags and a simple
       bit-list indicating the DNS RRTypes in the child that should be
       processed by the parental agent in order to modify the DNS
-      delegation records for the child within the parent's zone.
-      Children wanting a parental agent to perform the synchronization
-      steps outlined in this document MUST publish a CSYNC record at
-      the apex of the child zone.  Parental agent implementations MAY
-      choose to query child zones for this record and process DNS
-      record data as indicated by the Type Bit Map field in the RDATA
-      of the CSYNC record.  How the data is processed is described
-      later in Section <xref target="data_processing" />.</t>
+      delegation records for the child DNS operator within the parent's zone.
+      Child DNS operators wanting a parental agent to perform the
+      synchronization steps outlined in this document MUST publish a
+      CSYNC record at the apex of the child zone.  parental agent
+      implementations MAY choose to query child zones for this record
+      and process DNS record data as indicated by the Type Bit Map
+      field in the RDATA of the CSYNC record.  How the data is
+      processed is described later in Section <xref
+      target="data_processing" />.</t>
       
       <t>Parental agents MUST process the entire set of child data
       indicated by the Type Bit Map field (i.e., all record types
@@ -133,13 +141,13 @@
       any changes to parental records at all.  Errors due to
       unsupported Type Bit Map bits or otherwise nonpunishable data
       SHALL result in no change to the parent zone's delegation
-      information for the child.  Parental agents MUST ignore a
-      child's CSYNC RDATA set if multiple CSYNC resource records are
+      information for the Child.  Parental agents MUST ignore a
+      Child's CSYNC RDATA set if multiple CSYNC resource records are
       found; only a single CSYNC record should ever be expected.</t>
 
       <t>The parental agent MUST perform DNSSEC validation of the
       CSYNC RRType data and MUST perform DNSSEC validation of any data
-      to be copied from the child to the parent.  Parents MUST not
+      to be copied from the Child to the Parent.  Parents MUST not
       process any data from any of these records if any of the
       validation results indicate any anything other than "Secure"
       <xref target="RFC4034" />.</t>
@@ -257,6 +265,7 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 
       </section>
     </section>
+</section>
     <section title="CSYNC Data Processing" anchor="data_processing">
       <t>The CSYNC record and associated data must be processed as an
       "all or nothing" operation set.  If a parental agent fails to
@@ -437,7 +446,6 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	<t>XXX: Discuss complete replacement scenarios and if allowed.</t>
       </section>
     </section>
-    </section>
     <section title="Security Considerations">
       <t>This specification requires the use of DNSSEC in order to
       determine that the data being updated was unmodified by
@@ -462,7 +470,7 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
     <section title="Acknowledgments">
       <t>A thank you goes out to Warren Kumari and Ólafur Guðmundsson,
       who's work on the CDS record type helped inspire the work in
-      this document, as well as the definition for the "Parental Agent"
+      this document, as well as the definition for the "parental agent"
       definition.  A thank you also goes out to
       Ed Lewis, who the author held many conversations with about the
       issues surrounding parent/child relationships and
