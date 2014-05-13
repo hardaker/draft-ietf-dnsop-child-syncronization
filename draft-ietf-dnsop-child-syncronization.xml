@@ -3,6 +3,7 @@
   <!ENTITY rfc1034 PUBLIC '' 'reference.RFC.1034.xml'>
   <!ENTITY rfc1982 PUBLIC '' 'reference.RFC.1982.xml'>
   <!ENTITY rfc3597 PUBLIC '' 'reference.RFC.3597.xml'>
+  <!ENTITY rfc5226 PUBLIC '' 'reference.RFC.5226.xml'>
   <!ENTITY I-D.kumari-ogud-dnsop-cds SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.kumari-ogud-dnsop-cds.xml">
 ]>
 <?rfc strict="yes" ?>
@@ -492,7 +493,20 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
       maintaining security delegation information.</t>
     </section>
     <section title="IANA Considerations">
-      <t>TBD</t>
+	    <t>This document defines a set of single-bit "Flags" for
+	    use in the CSYNC record within the 16 bit Flags field.
+	    Thus, a maximum of 16 flags may be defined.  The initial
+	    flags defined by this document are:
+	    <list>
+		    <t>0x00 0x01: "immediate"</t>
+		    <t>0x00 0x02: "soaminimum"</t>
+	    </list>
+	    </t>
+
+	    <t>Assignment of new flag values are subject to "RFC
+	    Required" specifications <xref target="RFC5226" />.</t>
+
+      <t>IANA is requested to create a registery </t>
     </section>
     <section title="Acknowledgments">
       <t>A thank you goes out to Warren Kumari and Ólafur Guðmundsson,
@@ -522,6 +536,7 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
       &rfc1035;
       &rfc4033;
       &rfc4035;
+      &rfc5226;
       &I-D.kumari-ogud-dnsop-cds;
     </references>
   </back>
