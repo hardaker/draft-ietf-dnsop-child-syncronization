@@ -53,12 +53,12 @@
   <middle>
     <section title="Introduction">
 
-      <t>This document specifies how a child zone in the DNS can
-      publish a record to indicate to a parental agent that it may
-      copy and process certain records from the child zone.  The
-      existence and change of the record may be monitored by a
-      parental agent, after which the parent may act on the data
-      appropriately.</t>
+      <t>This document specifies how a child zone in the DNS (<xref
+      target="RFC1034" />, <xref target="RFC1035" />) can publish a
+      record to indicate to a parental agent that it may copy and
+      process certain records from the child zone.  The existence and
+      change of the record may be monitored by a parental agent, after
+      which the parent may act on the data appropriately.</t>
 
       <t>Some resource records (RRs) in a parent zone are typically
       expected to be in-sync with the source data in the child's zone.
@@ -145,12 +145,13 @@
       Child's CSYNC RDATA set if multiple CSYNC resource records are
       found; only a single CSYNC record should ever be expected.</t>
 
-      <t>The parental agent MUST perform DNSSEC validation of the
-      CSYNC RRType data and MUST perform DNSSEC validation of any data
-      to be copied from the Child to the Parent.  Parents MUST not
-      process any data from any of these records if any of the
-      validation results indicate any anything other than "Secure"
-      <xref target="RFC4034" />.</t>
+      <t>The parental agent MUST perform DNSSEC validation (<xref
+      target="RFC4033" />, <xref target="RFC4034" />, <xref
+      target="RFC4035" />), of the CSYNC RRType data and MUST perform
+      DNSSEC validation of any data to be copied from the Child to the
+      Parent.  Parents MUST not process any data from any of these
+      records if any of the validation results indicate any anything
+      other than "Secure" <xref target="RFC4034" />.</t>
 
       <section title="The CSYNC Resource Record Format">
 	<section title="The CSYNC Resource Record Wire Format">
