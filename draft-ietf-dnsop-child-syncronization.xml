@@ -4,7 +4,7 @@
   <!ENTITY rfc1982 PUBLIC '' 'reference.RFC.1982.xml'>
   <!ENTITY rfc3597 PUBLIC '' 'reference.RFC.3597.xml'>
   <!ENTITY rfc5226 PUBLIC '' 'reference.RFC.5226.xml'>
-  <!ENTITY I-D.kumari-ogud-dnsop-cds SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.kumari-ogud-dnsop-cds.xml">
+  <!ENTITY I-D.ietf-dnsop-delegation-trust-maintainance SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-dnsop-delegation-trust-maintainance.xml">
 ]>
 <?rfc strict="yes" ?>
 <?rfc toc="yes" ?>
@@ -42,9 +42,8 @@
       <t>This document specifies how a child zone in the DNS can
       publish a record to indicate to a parental agent that it may
       copy and process certain records from the child zone.  The
-      existence and change of the record may be monitored by a
-      parental agent, after which the parent may act on the data
-      appropriately.</t>
+      existence of and value change of the record may be monitored by
+      a parental agent and acted on as appropriate.</t>
     </abstract>
     <!--
     <note ...>
@@ -57,16 +56,16 @@
       <t>This document specifies how a child zone in the DNS (<xref
       target="RFC1034" />, <xref target="RFC1035" />) can publish a
       record to indicate to a parental agent that it may copy and
-      process certain records from the child zone.  The existence and
-      change of the record may be monitored by a parental agent, after
-      which the parent may act on the data appropriately.</t>
+      process certain records from the child zone.  The
+      existence of and value change of the record may be monitored by
+      a parental agent and acted on as appropriate.</t>
 
       <t>Some resource records (RRs) in a parent zone are typically
       expected to be in-sync with the source data in the child's zone.
-      The most common records, to date, that should match are the
+      The most common records that should match, to date, are the
       nameserver (NS) records and any necessary associated address
-      "glue" records (A and AAAA).  These records are referred to as
-      "delegation records".</t>
+      records (A and AAAA), also known as "glue records".  These
+      records are referred to as "delegation records".</t>
 
       <t>It has been traditionally challenging for child DNS operators to update
       their delegation records within the parent's set in a timely
@@ -77,19 +76,19 @@
       maintenance burden and improve the robustness of the DNS as a
       whole.</t>
 
-      <t>This draft introduces a new RR type (RRType) named "CSYNC"
-      that indicates which delegation records published by a child DNS operator
-      should be processed by a parental agent and used to update the
-      parent zone's DNS data.</t>
+      <t>This draft introduces a new Resource Record Type (RRType)
+      named "CSYNC" that indicates which delegation records published
+      by a child DNS operator should be processed by a parental agent
+      and used to update the parent zone's DNS data.</t>
 
       <t>This specification was not designed to synchronize DNSSEC
-      security records, such as DS RRsets. For such a solution, see
-      the complimentary solution <xref
-      target="I-D.kumari-ogud-dnsop-cds" /> for maintaining security
-      delegation information. In addition, this specification does not
-      address how to perform bootstrapping operations, including to
-      get the required initial DNSSEC-secured operating environment in
-      place.</t>
+      security records, such as DS RRsets. For a solution to this
+      problem, see the complimentary solution <xref
+      target="I-D.ietf-dnsop-delegation-trust-maintainance" />, which is designed to
+      maintain security delegation information. In addition, this
+      specification does not address how to perform bootstrapping
+      operations, including to get the required initial DNSSEC-secured
+      operating environment in place.</t>
 
       <section title="Terminology Used in This Document" anchor="musts">
 	<t>The terminology used in this document is defined in this section.</t>
@@ -125,14 +124,14 @@
       parts: an SOA serial number, a set of flags and a simple
       bit-list indicating the DNS RRTypes in the child that should be
       processed by the parental agent in order to modify the DNS
-      delegation records for the child DNS operator within the parent's zone.
+      delegation records within the parent's zone for the child DNS operator.
       Child DNS operators wanting a parental agent to perform the
       synchronization steps outlined in this document MUST publish a
-      CSYNC record at the apex of the child zone.  parental agent
+      CSYNC record at the apex of the child zone.  Parental agent
       implementations MAY choose to query child zones for this record
       and process DNS record data as indicated by the Type Bit Map
       field in the RDATA of the CSYNC record.  How the data is
-      processed is described later in Section <xref
+      processed is described in Section <xref
       target="data_processing" />.</t>
       
       <t>Parental agents MUST process the entire set of child data
@@ -140,19 +139,20 @@
       indicated along with all of the necessary records to support
       processing of that type) or else parental agents MUST NOT make
       any changes to parental records at all.  Errors due to
-      unsupported Type Bit Map bits or otherwise nonpunishable data
+      unsupported Type Bit Map bits, or otherwise nonpunishable data,
       SHALL result in no change to the parent zone's delegation
       information for the Child.  Parental agents MUST ignore a
       Child's CSYNC RDATA set if multiple CSYNC resource records are
-      found; only a single CSYNC record should ever be expected.</t>
+      found; only a single CSYNC record should ever be present.</t>
 
       <t>The parental agent MUST perform DNSSEC validation (<xref
       target="RFC4033" />, <xref target="RFC4034" />, <xref
       target="RFC4035" />), of the CSYNC RRType data and MUST perform
       DNSSEC validation of any data to be copied from the Child to the
-      Parent.  Parents MUST not process any data from any of these
+      Parent.  Parents MUST NOT process any data from any of these
       records if any of the validation results indicate any anything
-      other than "Secure" <xref target="RFC4034" />.</t>
+      other than "Secure" <xref target="RFC4034" /> or if any the
+      required data can not be successfully retrieved.</t>
 
       <section title="The CSYNC Resource Record Format">
 	<section title="The CSYNC Resource Record Wire Format">
@@ -173,14 +173,15 @@
 
         <section title="The SOA Serial Field">
 	  <t>The SOA Serial field contains a copy of the 32-bit SOA
-	  serial number from the child zone.  If the soaminimum flag is
-	  set, parental agents querying children's authoritative
+	  serial number from the child zone.  If the soaminimum flag
+	  is set, parental agents querying children's authoritative
 	  servers MUST NOT act on data from zones advertising an SOA
 	  serial number less than this value.  See <xref
 	  target="RFC1982" /> for properly implementing "less than"
-	  logic.  If the soaminimum flag is not set, parental agents MUST
-	  ignore the value in the SOA Serial Field.  Clients can set
-	  the field to any value, such as zero.</t>
+	  logic.  If the soaminimum flag is not set, parental agents
+	  MUST ignore the value in the SOA Serial Field.  Clients can
+	  set the field to any value if the soaminimum flag is unset,
+	  such as the number zero.</t>
 
 	  <t>Note that a child zone's current SOA serial number may be
 	  greater than the number indicated by the CSYNC record.  A
@@ -195,8 +196,8 @@
 	  than the last instance they pulled data from.</t>
 	</section>
 	<section title="The Flags Field">
-	  <t>The Flags field contains 16 bits of flags defining
-	  operations that affect the processing of the CSYNC record.
+	  <t>The Flags field contains 16 bits of boolean flags that define
+	  operations which affect the processing of the CSYNC record.
 	  The flags defined in this document are as follows:
 	  <list>
 	    <t>0x00 0x01: "immediate"</t>
@@ -252,7 +253,7 @@
 
 <figure>
 <artwork>
-example.com. 3600 IN CSYNC 66 1 A NS AAAA
+example.com. 3600 IN CSYNC 66 3 A NS AAAA
 </artwork>
 </figure>
 </t>
@@ -263,7 +264,7 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 <figure>
 <artwork>
   0x00 0x00 0x00 0x42             (SOA Serial)
-  0x00 0x01                       (Flags [the immediate bit is set])
+  0x00 0x03                       (Flags = immediate | soaminimum)
   0x00 0x04 0x60 0x00 0x00 0x08   (Type Bit Map)
 </artwork>
 </figure>
@@ -283,9 +284,9 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 
       <t>Parental agents MAY:
       <list>
-	<t>Process the CSYNC record immediately after noticing it if
+	<t>Process the CSYNC record immediately if
 	the "immediate" flag is set.  If the "immediate" flag is not
-	set, the parental agent MUST not act until the zone
+	set, the parental agent MUST NOT act until the zone
 	administrator approves the operation through an out-of-band
 	mechanism (such as through pushing a button via a web interface).</t>
 
@@ -319,7 +320,8 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	</t>
 	<t>If the SOA records from the first and last steps have
 	different serial numbers, then the CSYNC record obtained in
-	the second set MUST NOT be processed.</t>
+	the second set MUST NOT be processed.  The operation MAY be
+	restarted or retried in the future.</t>
 
 	<t>If the SOA serial numbers are equal but less than the CSYNC
 	record's SOA Serial Field <xref target="RFC1982" />,
@@ -389,9 +391,9 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	<t>The procedure for querying for A and AAAA records MUST
 	occur after the procedure, if required, for querying for NS
 	records as defined in Section <xref target="ns" />.  This
-	ensures that the right set NS records is used as provided by
+	ensures that the right set of NS records is used as provided by
 	the current NS set of the child.  I.e., for CSYNC records that
-	have the NS bit set, the NS set used should be the ones pulled
+	have the NS bit set, the NS set used should be the one pulled
 	from the child while processing the CSYNC record.  For CSYNC
 	records without the NS bit set, the existing NS records within
 	the parent should be used to determine which A and/or AAAA
@@ -400,7 +402,7 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
     </section>
     </section>
     <section title="Operational Considerations" anchor="operational">
-      <t>There are a number of important things to consider when
+      <t>There are a number of important operational aspects to consider when
       deploying a CSYNC RRType.</t>
       <section title="Error Reporting">
 	<t>There is no inline mechanism for a parental agent to report
@@ -416,17 +418,18 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
       <section title="Child Nameserver Selection">
       <t>Parental agents will need to poll child nameservers in search
       of CSYNC records and related data records.</t>
+
       <t>Parental agents MAY perform best-possible verification by
       querying all NS records for available data to determine which
       has the most recent SOA and CSYNC version (in an ideal world,
-      they would all be equal but this is not possible in practice due
+      they would all be equal, but this is not possible in practice due
       to synchronization delays and transfer failures).</t>
 
       <t>Parental agents MAY offer a configuration interface to allow
       child operators to specify which nameserver should be considered
-      the master to send data queries too.  This master may not be one
-      of the publically listed nameservers in the NS set (i.e., it may
-      be a "hidden master").</t>
+      the master to send data queries too.  This master MAY be a
+      different nameserver than the publically listed nameservers in
+      the NS set (i.e., it may be a "hidden master").</t>
 
       <t>Parental agents MAY offer a programmatic interface to let children
       indicate that new CSYNC records and data are available for polling.</t>
@@ -445,8 +448,8 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 	Children deploying NS records pointing to domain-names within
 	their own children (the "grandchildren") SHOULD ensure the
 	grandchildren's associated glue records are properly set
-	before publishing the CSYNC record.  I.E., it is imperative
-	that proper communication of synchronization efforts exist
+	before publishing the CSYNC record.  I.e., it is imperative
+	that proper communication and synchronization exist
 	between the child and the grandchild.
 	</t>
       </section>
@@ -489,14 +492,14 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
       this specification was not designed to synchronize DNSSEC
       security records, such as DS pointers.  For such a
       solution, please see the complimentary solution <xref
-      target="I-D.kumari-ogud-dnsop-cds" /> for
+      target="I-D.ietf-dnsop-delegation-trust-maintainance" /> for
       maintaining security delegation information.</t>
     </section>
     <section title="IANA Considerations">
 	    <t>This document defines a set of single-bit "Flags" for
 	    use in the CSYNC record within the 16 bit Flags field.
-	    Thus, a maximum of 16 flags may be defined.  The initial
-	    flags defined by this document are:
+	    Thus, a maximum of 16 flags may be defined.  The two
+	    initial flags defined by this document are:
 	    <list>
 		    <t>0x00 0x01: "immediate"</t>
 		    <t>0x00 0x02: "soaminimum"</t>
@@ -505,8 +508,6 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
 
 	    <t>Assignment of new flag values are subject to "RFC
 	    Required" specifications <xref target="RFC5226" />.</t>
-
-      <t>IANA is requested to create a registery </t>
     </section>
     <section title="Acknowledgments">
       <t>A thank you goes out to Warren Kumari and Ólafur Guðmundsson,
@@ -537,7 +538,7 @@ example.com. 3600 IN CSYNC 66 1 A NS AAAA
       &rfc4033;
       &rfc4035;
       &rfc5226;
-      &I-D.kumari-ogud-dnsop-cds;
+      &I-D.ietf-dnsop-delegation-trust-maintainance;
     </references>
   </back>
 </rfc>
