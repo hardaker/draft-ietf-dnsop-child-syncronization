@@ -60,9 +60,9 @@
       existence of and value change of the record may be monitored by
       a parental agent and acted on as appropriate.</t>
 
-      <t>Some resource records (RRs) in a parent zone are typically
+      <t>Currently today, some resource records (RRs) in a parent zone are typically
       expected to be in-sync with the source data in the child's zone.
-      The most common records that should match, to date, are the
+      The most common records that should match are the
       nameserver (NS) records and any necessary associated address
       records (A and AAAA), also known as "glue records".  These
       records are referred to as "delegation records".</t>
