@@ -496,18 +496,49 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
       maintaining security delegation information.</t>
     </section>
     <section title="IANA Considerations">
-	    <t>This document defines a set of single-bit "Flags" for
-	    use in the CSYNC record within the 16 bit Flags field.
-	    Thus, a maximum of 16 flags may be defined.  The two
-	    initial flags defined by this document are:
-	    <list>
-		    <t>0x00 0x01: "immediate"</t>
-		    <t>0x00 0x02: "soaminimum"</t>
-	    </list>
-	    </t>
+      <t>This document defines a new DNS Resource Record Type, named
+      "CSYNC". The IANA is requested to assign a code point from the
+      "Resource Record (RR) TYPEs" sub-registry of the "Domain Name
+      System (DNS) Parameters" registry
+      (http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml)
+      for this record.
 
-	    <t>Assignment of new flag values are subject to "RFC
-	    Required" specifications <xref target="RFC5226" />.</t>
+<figure>
+<artwork>
+TYPE    Value    Meaning                                 Reference
+-----   ------   --------------------------            -----------
+CSYNC    TBA     Child To Parent Synchronization      [This document]
+</artwork>
+</figure>
+      </t>
+
+<t>[ To be removed prior to publication: The CDS (59), CDNSKEY (60)
+and the CSYNC records are all conceptually similar - if the code-point
+61 happens to still be Unassigned when the IANA processes this, it
+would be nice if that could be used for this.]</t>
+
+<t>The IANA is also requested to create and maintain a sub-registry
+(the "Child Synchronization (CSYNC)" registry) of the "Domain Name
+System (DNS) Parameters" registry.  The initial values for this
+registry are below; assignment of new flag values are subject to "RFC
+Required" specifications <xref target="RFC5226" />.</t>
+
+<t>This registry will hold a set of single-bit "Flags" for use in the
+CSYNC record within the 16 bit Flags field. Thus, a maximum of 16
+flags may be defined.</t>
+
+<t>The initial assignments in this registry are:
+
+<figure>
+<artwork>
+ Bit      Flag         Description               Reference
+ ----     ------      -------------              -----------
+ Bit 0    immediate   Immediately process this   [This document, Section 3]
+                      CSYNC record
+ Bit 1    soaminimum  Require at least this SOA  [This document, Section 2.1.1.1]
+</artwork>
+</figure>
+</t>
     </section>
     <section title="Acknowledgments">
       <t>A thank you goes out to Warren Kumari and Ólafur Guðmundsson,
