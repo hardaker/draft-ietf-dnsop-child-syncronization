@@ -1,5 +1,5 @@
 PREFIX=draft-ietf-dnsop-child-syncronization
-VERSION=01
+VERSION=02
 
 #RFC=rfc6168
 
