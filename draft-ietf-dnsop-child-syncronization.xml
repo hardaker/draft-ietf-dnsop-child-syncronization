@@ -4,7 +4,7 @@
   <!ENTITY rfc1982 PUBLIC '' 'reference.RFC.1982.xml'>
   <!ENTITY rfc3597 PUBLIC '' 'reference.RFC.3597.xml'>
   <!ENTITY rfc5226 PUBLIC '' 'reference.RFC.5226.xml'>
-  <!ENTITY I-D.ietf-dnsop-delegation-trust-maintainance SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-dnsop-delegation-trust-maintainance.xml">
+  <!ENTITY I-D.ietf-dnsop-delegation-trust-maintainance SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-dnsop-delegation-trust-maintainance.xml">
 ]>
 <?rfc strict="yes" ?>
 <?rfc toc="yes" ?>
