@@ -500,22 +500,17 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
       "CSYNC". The IANA is requested to assign a code point from the
       "Resource Record (RR) TYPEs" sub-registry of the "Domain Name
       System (DNS) Parameters" registry
-      (http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml)
+      (http://www.iana.org/assignments/dns-parameters)
       for this record.
 
 <figure>
 <artwork>
   TYPE    Value    Meaning                           Reference
   -----   ------   --------------------------        -----------
-  CSYNC   TBA      Child To Parent Synchronization   [This document]
+  CSYNC   TBD      Child To Parent Synchronization   [This document]
 </artwork>
 </figure>
       </t>
-
-<t>[ To be removed prior to publication: The CDS (59), CDNSKEY (60)
-and the CSYNC records are all conceptually similar - if the code-point
-61 happens to still be Unassigned when the IANA processes this, it
-would be nice if that could be used for this.]</t>
 
 <t>The IANA is also requested to create and maintain a sub-registry
 (the "Child Synchronization (CSYNC) Flags" registry) of the
