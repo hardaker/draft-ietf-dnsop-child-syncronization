@@ -1,0 +1,161 @@
+* notes from last call
+
+*** Adrian Farrel
+    Adrian Farrel has entered the following ballot position for
+    draft-ietf-dnsop-child-syncronization-02: No Objection
+
+    When responding, please keep the subject line intact and reply to all
+    email addresses included in the To and CC lines. (Feel free to cut this
+    introductory paragraph, however.)
+
+
+    Please refer to http://www.ietf.org/iesg/statement/discuss-criteria.html
+    for more information about IESG DISCUSS and COMMENT positions.
+
+
+    The document, along with other ballot positions, can be found here:
+    http://datatracker.ietf.org/doc/draft-ietf-dnsop-child-syncronization/
+
+
+
+    ----------------------------------------------------------------------
+    COMMENT:
+    ----------------------------------------------------------------------
+
+    I have no objection to the publication of this document, but note a
+    couple of nits.
+
+    ---
+
+**** DONE I'm a pedant, I know, but...
+     :LOGBOOK:
+     - State "DONE"       from "TODO"       [2014-09-02 Tue 13:23]
+     :END:
+    Abstract
+    OLD
+       This document specifies how a child zone in the DNS can publish a
+       record to indicate to a parental agent that it may copy and process
+       certain records from the child zone.  The existence of and value
+       change of the record may be monitored by a parental agent and acted
+       on as appropriate.
+    NEW
+       This document specifies how a child zone in the DNS can publish a
+       record to indicate to a parental agent that the parental agent may
+       copy and process certain records from the child zone.  The existence
+       of the record and any change in its value may be monitored by a
+       parental agent and acted on depending on local policy.
+    END
+
+**** TODO - "...it may..." is marginally ambiguous
+**** TODO - "...existence of and value of..." was sufficiently clumsy to cause
+      re-reading
+**** TODO - "as appropriate" always rings an alarm bell with me because it
+      actually says nothing :-)  (I may be wrong about "...depending on
+      local policy" which would:
+      - prove my point
+      - allow you to substitute your own text.
+
+**** TODO The same paragraph appears in the Introduction.
+
+    ---
+
+    Continuing the pedantic theme (don't I have anything better to do with
+    my time?)...
+
+**** TODO Section 1
+
+       It has been traditionally challenging for child DNS operators to
+       update their delegation records within the parent's set in a timely
+       fashion.
+
+    "Tradition"?
+    Image of my grandfather on the roof of his house with violin and DNS
+    server.
+    Maybe just strike the word.
+
+**** TODO Also "child DNS operators" made me giggle unmercifully.
+    Maybe "operators of child DNS zones"?
+**** TODO In general, the inclusion of "zone" after "DNS" will help clarify.
+
+    ---
+
+**** TODO 2.1.1.2 and 2.1.1.2.1.
+
+    c/Section Section/Section/
+
+
+*** Brian Haberman
+
+***** TODO DISCUSS:
+      ----------------------------------------------------------------------
+
+      I support the publication of this document, but I have one point that I
+      would like to discuss.  I *think* this should be easy...
+
+      Section 2.1.1.2.1 ends with this text:
+
+         Specifically: a parental agent must not copy data blindly; An IETF
+         proposed (or higher) standard specification must exist that defines
+         how the data should be processed for a given bit.
+
+      I am not sure how this gets enforced given its locality within the
+      document.  I think it is easier to enforce by taking the text out of
+      2.1.1.2.1 and adding text to the IANA Considerations section stating that
+      in order to allocate a bit out of the Child Synchronization (CSYNC) Flags
+      registry, the RFC needs to be published via Standards Action (per RFC
+      5226). That would clearly control what type of document can get a bit
+      allocated out of that registry.
+
+*** Joel Jaeggli
+
+      ----------------------------------------------------------------------
+      DISCUSS:
+      ----------------------------------------------------------------------
+
+      it appears that this went to to short a last call for it's intended
+      status (standards track)
+
+*** Pete Resnick
+
+***** TODO DISCUSS:
+    ----------------------------------------------------------------------
+
+    The writeup and the document itself say that this is going to be
+    Standards Track, which seems appropriate. But the datatracker says that
+    it is going for Informational, the Last Call went out as Informational,
+    and it is being balloted as Informational. If the intention is that this
+    is Standards Track, this needs a new Last Call and needs to be on a new
+    telechat. (For those that might be thinking that this is meaningless
+    process-wonkery, please note that getting the status wrong has
+    consequences: Barry and I split up Informational documents so only one of
+    us reviews each. Therefore, Barry did not review this document at all. I
+    am quite sure if this is to be Standards Track, he would want to review
+    it.)
+
+
+***** TODO COMMENT:
+    ----------------------------------------------------------------------
+
+******* TODO Good document. A few simple comments:
+
+        Section 3:
+
+          Require that the child zone administrator approve the operation
+          through an out-of-band mechanism (such as through pushing a button
+          via a web interface).  I.e., a parental agent MAY choose not to
+          support the "immediate" flag.
+
+******* TODO I think you reversed this sentence. Better would be:
+
+          Choose not to process the CSYNC record immediately, even if the
+          "immediate" flag is set. That is, a parental agent might require
+          the child zone administrator approve the operation through an
+          out-of-band mechanism (such as through pushing a button via a web
+          interface).
+
+******* TODO Sections 4.2, 4.3, and 4.4: The MAYs in there MAY be inappropriate. The
+    	ones about providing interfaces sure don't seem like protocol options. On
+    	the others it's hard to tell. Please review. The SHOULD in 4.4 seems also
+    	suspiciously wrong.
+
+* 
