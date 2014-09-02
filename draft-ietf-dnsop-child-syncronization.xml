@@ -290,10 +290,11 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	administrator approves the operation through an out-of-band
 	mechanism (such as through pushing a button via a web interface).</t>
 
-	<t>Require that the child zone administrator approve the
-	operation through an out-of-band mechanism (such as through
-	pushing a button via a web interface).  I.e., a parental agent
-	MAY choose not to support the "immediate" flag.</t>
+	<t>Choose not to process the CSYNC record immediately, even if the
+          "immediate" flag is set. That is, a parental agent might require
+          the child zone administrator approve the operation through an
+          out-of-band mechanism (such as through pushing a button via a web
+          interface).</t>
       </list>
       </t>
       <t>Note: how the approval is done out-of-band is outside the
@@ -503,44 +504,43 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
       (http://www.iana.org/assignments/dns-parameters)
       for this record.
 
-<figure>
-<artwork>
-  TYPE    Value    Meaning                           Reference
-  -----   ------   --------------------------        -----------
-  CSYNC   TBD      Child To Parent Synchronization   [This document]
-</artwork>
-</figure>
-      </t>
+    <figure>
+    <artwork>
+      TYPE    Value    Meaning                           Reference
+      -----   ------   --------------------------        -----------
+      CSYNC   TBD      Child To Parent Synchronization   [This document]
+    </artwork>
+    </figure>
+          </t>
 
-<t>The IANA is also requested to create and maintain a sub-registry
-(the "Child Synchronization (CSYNC) Flags" registry) of the
-"Domain Name System (DNS) Parameters" registry.  The initial values
-for this registry are below. Assignment of new flag values are subject
-to "RFC Required" specifications <xref target="RFC5226" />.</t>
+    <t>The IANA is also requested to create and maintain a sub-registry
+    (the "Child Synchronization (CSYNC) Flags" registry) of the
+    "Domain Name System (DNS) Parameters" registry.  The initial values
+    for this registry are below. Assignment of new flag values are subject
+    to "RFC Required" specifications <xref target="RFC5226" />.</t>
 
-<t>This registry will hold a set of single-bit "Flags" for use in the
-CSYNC record within the 16 bit Flags field. Thus, a maximum of 16
-flags may be defined.</t>
+    <t>This registry will hold a set of single-bit "Flags" for use in the
+    CSYNC record within the 16 bit Flags field. Thus, a maximum of 16
+    flags may be defined.</t>
 
-<t>The initial assignments in this registry are:
+    <t>The initial assignments in this registry are:
 
-<figure>
-<artwork>
-  Bit      Flag        Description               Reference
-  ----     ------      -------------             -----------
-  Bit 0    immediate   Immediately process this  [This document,
-                       CSYNC record.             Section 3]
+    <figure>
+    <artwork>
+      Bit      Flag        Description               Reference
+      ----     ------      -------------             -----------
+      Bit 0    immediate   Immediately process this  [This document,
+                           CSYNC record.             Section 3]
 
-  Bit 1    soaminimum  Require a SOA serial      [This document,
-                       number greater than the   Section 2.1.1.1]
-                       one specified.
-</artwork>
-</figure>
+      Bit 1    soaminimum  Require a SOA serial      [This document,
+                           number greater than the   Section 2.1.1.1]
+                           one specified.
+    </artwork>
+    </figure>
+    </t>
 
-<t>For new assignments to be made to this registry, a new RFC must be
-published via a Standards Action.</t>
-
-</t>
+    <t>For new assignments to be made to this registry, a new RFC must be
+    published via a Standards Action.</t>
     </section>
     <section title="Acknowledgments">
       <t>A thank you goes out to Warren Kumari and Ólafur Guðmundsson,
