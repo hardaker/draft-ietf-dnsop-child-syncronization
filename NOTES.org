@@ -212,6 +212,8 @@
           out-of-band mechanism (such as through pushing a button via a web
           interface).
 
+        + suggested text added
+
 ******* TODO Sections 4.2, 4.3, and 4.4: The MAYs in there MAY be inappropriate. The
     	ones about providing interfaces sure don't seem like protocol options. On
     	the others it's hard to tell. Please review. The SHOULD in 4.4 seems also
