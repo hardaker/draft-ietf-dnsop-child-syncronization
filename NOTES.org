@@ -204,7 +204,7 @@
           via a web interface).  I.e., a parental agent MAY choose not to
           support the "immediate" flag.
 
-******* TODO I think you reversed this sentence. Better would be:
+        I think you reversed this sentence. Better would be:
 
           Choose not to process the CSYNC record immediately, even if the
           "immediate" flag is set. That is, a parental agent might require
