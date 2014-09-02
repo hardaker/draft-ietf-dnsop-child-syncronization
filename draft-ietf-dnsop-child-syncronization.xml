@@ -222,10 +222,10 @@
 	  target="RFC4034" />, Section 4.1.2. If a bit has been set
 	  that a parental agent implementation does not understand,
 	  the parental agent MUST NOT act upon the record.
-	  Specifically: a parental agent must not copy data blindly;
-	  An IETF proposed (or higher) standard specification must
-	  exist that defines how the data should be processed for a
-	  given bit.</t>
+	  Specifically: a parental agent must not copy data blindly
+	  and must understand the semantics associated with an bit in
+	  the Type Bit Map field that has been set to 1.
+	  </t>
 	</section>
 	</section>
 	</section>
@@ -536,6 +536,10 @@ flags may be defined.</t>
                        one specified.
 </artwork>
 </figure>
+
+<t>For new assignments to be made to this registry, a new RFC must be
+published via a Standards Action.</t>
+
 </t>
     </section>
     <section title="Acknowledgments">

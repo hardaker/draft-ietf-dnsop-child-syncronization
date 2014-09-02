@@ -142,6 +142,15 @@
       5226). That would clearly control what type of document can get a bit
       allocated out of that registry.
 
+
+      + Good point; changed to "Specifically: a parental agent must not copy data blindly
+	and must understand the semantics associated with an bit in
+	the Type Bit Map field that has been set to 1."
+
+
+      + New IANA text: For new assignments to be made to this
+        registry, a new RFC must be published via a Standards Action.
+
 *** Joel Jaeggli
 
       ----------------------------------------------------------------------
