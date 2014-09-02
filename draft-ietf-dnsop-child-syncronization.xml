@@ -506,9 +506,9 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 
     <figure>
     <artwork>
-      TYPE    Value    Meaning                           Reference
-      -----   ------   --------------------------        -----------
-      CSYNC   TBD      Child To Parent Synchronization   [This document]
+   TYPE    Value    Meaning                           Reference
+   -----   ------   --------------------------        -----------
+   CSYNC   TBD      Child To Parent Synchronization   [This document]
     </artwork>
     </figure>
           </t>
@@ -527,14 +527,14 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 
     <figure>
     <artwork>
-      Bit      Flag        Description               Reference
-      ----     ------      -------------             -----------
-      Bit 0    immediate   Immediately process this  [This document,
-                           CSYNC record.             Section 3]
+   Bit      Flag        Description               Reference
+   ----     ------      -------------             -----------
+   Bit 0    immediate   Immediately process this  [This document,
+                        CSYNC record.             Section 3]
 
-      Bit 1    soaminimum  Require a SOA serial      [This document,
-                           number greater than the   Section 2.1.1.1]
-                           one specified.
+   Bit 1    soaminimum  Require a SOA serial      [This document,
+                        number greater than the   Section 2.1.1.1]
+                        one specified.
     </artwork>
     </figure>
     </t>
