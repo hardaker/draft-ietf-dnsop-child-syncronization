@@ -169,13 +169,11 @@
       it appears that this went to to short a last call for it's intended
       status (standards track)
 
-      + this was reissued already right?
+      + this was reissued already right?  (yep: aug 08)
 
 *** TODO Pete Resnick
 
 ***** TODO DISCUSS:
-    ----------------------------------------------------------------------
-
     The writeup and the document itself say that this is going to be
     Standards Track, which seems appropriate. But the datatracker says that
     it is going for Informational, the Last Call went out as Informational,
@@ -188,11 +186,16 @@
     am quite sure if this is to be Standards Track, he would want to review
     it.)
 
+    + think this is done right?  (yep: aug 08)
+
 
 ***** TODO COMMENT:
     ----------------------------------------------------------------------
 
-******* TODO Good document. A few simple comments:
+******* DONE Good document. A few simple comments:
+	:LOGBOOK:
+	- State "DONE"       from "TODO"       [2014-09-02 Tue 13:43]
+	:END:
 
         Section 3:
 
