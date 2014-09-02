@@ -46,7 +46,11 @@
        parental agent and acted on depending on local policy.
     END
 
-**** TODO - "...it may..." is marginally ambiguous
+**** DONE - "...it may..." is marginally ambiguous
+     :LOGBOOK:
+     - State "DONE"       from "TODO"       [2014-09-02 Tue 13:24]
+     :END:
+     + changed to "can"
 **** TODO - "...existence of and value of..." was sufficiently clumsy to cause
       re-reading
 **** TODO - "as appropriate" always rings an alarm bell with me because it

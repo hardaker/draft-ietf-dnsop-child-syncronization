@@ -55,7 +55,7 @@
 
       <t>This document specifies how a child zone in the DNS (<xref
       target="RFC1034" />, <xref target="RFC1035" />) can publish a
-      record to indicate to a parental agent that it may copy and
+      record to indicate to a parental agent that can copy and
       process certain records from the child zone.  The
       existence of and value change of the record may be monitored by
       a parental agent and acted on as appropriate.</t>
