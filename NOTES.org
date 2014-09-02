@@ -120,9 +120,15 @@
     c/Section Section/Section/
 
 
-*** Brian Haberman
+*** DONE Brian Haberman
+    :LOGBOOK:
+    - State "DONE"       from ""           [2014-09-02 Tue 13:36]
+    :END:
 
-***** TODO DISCUSS:
+***** DONE DISCUSS:
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-02 Tue 13:36]
+      :END:
       ----------------------------------------------------------------------
 
       I support the publication of this document, but I have one point that I
@@ -151,7 +157,10 @@
       + New IANA text: For new assignments to be made to this
         registry, a new RFC must be published via a Standards Action.
 
-*** Joel Jaeggli
+*** DONE Joel Jaeggli
+    :LOGBOOK:
+    - State "DONE"       from "TODO"       [2014-09-02 Tue 13:36]
+    :END:
 
       ----------------------------------------------------------------------
       DISCUSS:
@@ -160,7 +169,9 @@
       it appears that this went to to short a last call for it's intended
       status (standards track)
 
-*** Pete Resnick
+      + this was reissued already right?
+
+*** TODO Pete Resnick
 
 ***** TODO DISCUSS:
     ----------------------------------------------------------------------
