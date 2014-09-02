@@ -42,7 +42,7 @@
       <t>This document specifies how a child zone in the DNS can publish a
        record to indicate to a parental agent that the parental agent may
        copy and process certain records from the child zone.  The existence
-       of the record and any change in its value may be monitored by a
+       of the record and any change in its value can be monitored by a
        parental agent and acted on depending on local policy.</t>
     </abstract>
     <!--
@@ -56,9 +56,9 @@
       <t>This document specifies how a child zone in the DNS (<xref
       target="RFC1034" />, <xref target="RFC1035" />) can publish a
       record to indicate to a parental agent that can copy and
-      process certain records from the child zone.  The
-      existence of and value change of the record may be monitored by
-      a parental agent and acted on as appropriate.</t>
+      process certain records from the child zone.  The existence
+      of the record and any change in its value can be monitored by a
+      parental agent and acted on depending on local policy.</t>
 
       <t>Currently today, some resource records (RRs) in a parent zone are typically
       expected to be in-sync with the source data in the child's zone.
@@ -67,7 +67,7 @@
       records (A and AAAA), also known as "glue records".  These
       records are referred to as "delegation records".</t>
 
-      <t>It has been traditionally challenging for child DNS operators to update
+      <t>It has been challenging for operators of child DNS zones to update
       their delegation records within the parent's set in a timely
       fashion.  This difficulty is frequently from simple operator
       laziness or because of the complexities of maintaining a large
@@ -131,7 +131,7 @@
       implementations MAY choose to query child zones for this record
       and process DNS record data as indicated by the Type Bit Map
       field in the RDATA of the CSYNC record.  How the data is
-      processed is described in Section <xref
+      processed is described in <xref
       target="data_processing" />.</t>
       
       <t>Parental agents MUST process the entire set of child data

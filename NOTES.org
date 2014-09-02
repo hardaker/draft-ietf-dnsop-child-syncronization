@@ -1,6 +1,9 @@
 * notes from last call
 
-*** Adrian Farrel
+*** DONE Adrian Farrel
+    :LOGBOOK:
+    - State "DONE"       from "TODO"       [2014-09-02 Tue 13:31]
+    :END:
     Adrian Farrel has entered the following ballot position for
     draft-ietf-dnsop-child-syncronization-02: No Objection
 
@@ -51,22 +54,38 @@
      - State "DONE"       from "TODO"       [2014-09-02 Tue 13:24]
      :END:
      + changed to "can"
-**** TODO - "...existence of and value of..." was sufficiently clumsy to cause
+**** DONE - "...existence of and value of..." was sufficiently clumsy to cause
+     :LOGBOOK:
+     - State "DONE"       from "TODO"       [2014-09-02 Tue 13:26]
+     :END:
       re-reading
-**** TODO - "as appropriate" always rings an alarm bell with me because it
+      + changed to "The existence of a CSYNC record and its value can
+        be monitored by a parental agent and acted on as appropriate"
+**** DONE - "as appropriate" always rings an alarm bell with me because it
+     :LOGBOOK:
+     - State "DONE"       from "TODO"       [2014-09-02 Tue 13:27]
+     :END:
       actually says nothing :-)  (I may be wrong about "...depending on
       local policy" which would:
       - prove my point
       - allow you to substitute your own text.
 
-**** TODO The same paragraph appears in the Introduction.
+	+ changed to the same text in both places
+
+**** DONE The same paragraph appears in the Introduction.
+     :LOGBOOK:
+     - State "DONE"       from "TODO"       [2014-09-02 Tue 13:28]
+     :END:
 
     ---
 
     Continuing the pedantic theme (don't I have anything better to do with
     my time?)...
 
-**** TODO Section 1
+**** DONE Section 1
+     :LOGBOOK:
+     - State "DONE"       from "TODO"       [2014-09-02 Tue 13:29]
+     :END:
 
        It has been traditionally challenging for child DNS operators to
        update their delegation records within the parent's set in a timely
@@ -77,13 +96,26 @@
     server.
     Maybe just strike the word.
 
-**** TODO Also "child DNS operators" made me giggle unmercifully.
+    + So struck
+
+**** DONE Also "child DNS operators" made me giggle unmercifully.
+     :LOGBOOK:
+     - State "DONE"       from "TODO"       [2014-09-02 Tue 13:30]
+     :END:
     Maybe "operators of child DNS zones"?
-**** TODO In general, the inclusion of "zone" after "DNS" will help clarify.
+    
+    + good point.  And I'm happy you enjoyed any humor you got out of
+      it :-)
 
-    ---
+**** WONTDO In general, the inclusion of "zone" after "DNS" will help clarify.
 
-**** TODO 2.1.1.2 and 2.1.1.2.1.
+     + I'm not sure that's actually wise in most other places.  Is
+       there a few places you were thinking of?
+
+**** DONE 2.1.1.2 and 2.1.1.2.1.
+     :LOGBOOK:
+     - State "DONE"       from "TODO"       [2014-09-02 Tue 13:31]
+     :END:
 
     c/Section Section/Section/
 
