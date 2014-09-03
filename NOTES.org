@@ -244,3 +244,165 @@
           from your parent if you publish a CSYNC record.  The parent
           must document they're support for children to know they can
           make use of it.
+*** DONE Warren Kumari
+    :LOGBOOK:
+    - State "DONE"       from "TODO"       [2014-09-03 Wed 15:06]
+    :END:
+
+      Revision reviewed: draft-ietf-dnsop-child-syncronization-01
+      Summary: Ready with nits.
+      ID Nits: Clean, other than a ref to a newer version of a draft (RFC Ed
+      can deal with this).
+
+      Checklist stuff:
+      A.1.  Operational Considerations
+      This document does describe how deployment will occur (it's basically
+      built in to the document) and the solution is deployable.
+      It appears to scale well from an operational / management perspective.
+
+      A.1.5.1 - Will the new protocol significantly increase traffic load on
+      existing networks?
+      In a pathological network it could be noticeable - if you had a
+      nameserver with a *very* large number of *very* unpopular names the
+      CSYNC "polls" could be a significant fraction of traffic. This is very
+      very unlikely to occur in the real world - nameservers like this (if
+      they exist) are probably run by registrars ("Get free DNS when you buy
+      a domain!") who would not need this functionality (they manage things
+      in a different manner). They would also have other domains that get
+      significant traffic, so the CSYNC would get lost in the noise
+      anyway...
+
+***** DONE A.1.8 - Are there fault or threshold conditions that should be reported?
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-03 Wed 15:06]
+      :END:
+      Yes, kinda. Inability to process a CSYNC record (for any reason)
+      should be reported. It would be nice to be able to signal that to the
+      child, but there is no realistic way to accomplish this (which the
+      document covers). I think that it would be useful for the document to
+      suggest that failures SHOULD be logged (so that the parent can
+      troubleshoot if they want to).
+
+      + WH: added "Parental agents SHOULD, at a
+	minimum, at least log errors encountered when processing CSYNC
+	records.  "
+
+      A.3:
+      This document includes an Operation Considerations section (Section
+      4). It is well written and understandable.
+      Q: Does the proposed protocol have a significant operational impact on
+      the Internet?
+      A: Yup, it sure does -- deployment of this solution will significantly
+      lessen delegation mismatches between parent and child. This will
+      improve the stability / correctness of the DNS, and so the Internet at
+      large.
+
+
+      Nits:
+
+      Section 1 - Introduction:
+***** DONE Some resource records (RRs) in a parent zone are typically expected
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-03 Wed 15:04]
+      :END:
+        to be in-sync [O: in-sync P: in sync] with the source data in the
+      child's zone.
+
+***** DONE This difficulty is frequently from simple operator laziness [O: This
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-03 Wed 15:04]
+      :END:
+      difficulty is frequently from simple operator laziness
+        or because of the complexities of... P: These difficulties may stem
+      from operator laziness, as well as from the complexities of...]
+
+***** DONE This specification was not designed to synchronize DNSSEC security
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-03 Wed 15:03]
+      :END:
+        records, such as DS RRsets.  For a solution to this problem, see the
+        complimentary [O: complimentary P: complementary] solution
+        [I-D.ietf-dnsop-delegation-trust-maintainance],
+
+      (I do like the fact that the document is complimentary about
+      I-D.ietf-dnsop-delegation-trust-maintainance :-)
+
+
+***** DONE Section 4:
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-03 Wed 15:02]
+      :END:
+       Where [O: where P: Where] errors for CSYNC processing are published
+
+       + WH: already done
+
+***** WONTDO Section 2.1.1.2.1:
+      "Specifically: a parental agent must not copy data blindly; An IETF
+       proposed (or higher) standard specification"
+      I think the 'A' in 'An' does not need to be capitalized.
+
+      + WH: text was revised since then and this no longer applies
+
+***** DONE Section 3.2.2:
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-03 Wed 15:01]
+      :END:
+      "The A and AAAA type flags indicates that the A and AAAA,
+       respectively, address glue records for in-bailiwick NS records within
+       the child zone should be copied into the parent’s delegation
+       information."
+
+      I found this sentence difficult to parse (even though I know what it
+      was trying to say). I think that just dropping the "respectively"
+      would make it much clearer (and folk won't get confused).
+
+      + WH: so dropped
+
+
+***** DONE Acknowlegement:
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-03 Wed 15:00]
+      :END:
+      Olafur is listed as "Olafur Gu[eth]mundsson" - I believe that he'd
+      prefer: Ólafur Guðmundsson if possible else Olafur Gudmundsson.
+
+      + WH: was already done
+
+***** DONE A thank you also goes out to Ed Lewis, who the author
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-03 Wed 15:00]
+      :END:
+        held many conversations with  [O: who...with P: with whom ...] about
+      the issues surrounding parent/
+        child relationships and synchronization.
+
+
+      More than Nits:
+***** DONE Section 3.1:
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-03 Wed 14:59]
+      :END:
+      "If the SOA records from the first and last steps have different
+       serial numbers, then the CSYNC record obtained in the second set MUST
+       NOT be processed. The operation MAY be restarted or retried in the
+       future."
+      I think it might be helpful to explain *why* the SOA might change
+      (otherwise it kinda sounds like the processing of the CSYNC record
+      caused the change). Something like: If the SOA records from the first
+      and last steps have different
+       serial numbers (for example, because the zone was edited during the
+      interval between steps 1 and 4), then ..."
+
+      + WH: added a variation: "(for example, because the zone was
+	edited and republished during the interval between steps 1 and
+	4)"
+
+***** DONE 6: IANA Considerations:
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-03 Wed 14:58]
+      :END:
+      I think that this document is creating an IANA registry, and will
+      probably need a longer bit of text (basically requesting that the IANA
+      creates the registry). Not sure though.
+      
+      + WH: done previously based on text, I think, from Warren if I recall.
