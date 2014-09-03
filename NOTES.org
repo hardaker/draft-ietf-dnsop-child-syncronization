@@ -1,6 +1,9 @@
-* notes from last call
+* Notes from last call
+  :LOGBOOK:
+  - State "DONE"       from ""           [2014-09-02 Tue 16:52]
+  :END:
 
-*** DONE Adrian Farrel
+*** Adrian Farrel
     :LOGBOOK:
     - State "DONE"       from "TODO"       [2014-09-02 Tue 13:31]
     :END:
@@ -53,13 +56,13 @@
      :LOGBOOK:
      - State "DONE"       from "TODO"       [2014-09-02 Tue 13:24]
      :END:
-     + changed to "can"
+     + WJH: changed to "can"
 **** DONE - "...existence of and value of..." was sufficiently clumsy to cause
      :LOGBOOK:
      - State "DONE"       from "TODO"       [2014-09-02 Tue 13:26]
      :END:
       re-reading
-      + changed to "The existence of a CSYNC record and its value can
+      + WJH: changed to "The existence of a CSYNC record and its value can
         be monitored by a parental agent and acted on as appropriate"
 **** DONE - "as appropriate" always rings an alarm bell with me because it
      :LOGBOOK:
@@ -70,7 +73,7 @@
       - prove my point
       - allow you to substitute your own text.
 
-	+ changed to the same text in both places
+	+ WJH: changed to the same text in both places
 
 **** DONE The same paragraph appears in the Introduction.
      :LOGBOOK:
@@ -96,7 +99,7 @@
     server.
     Maybe just strike the word.
 
-    + So struck
+    + WJH: It has been struck
 
 **** DONE Also "child DNS operators" made me giggle unmercifully.
      :LOGBOOK:
@@ -104,12 +107,12 @@
      :END:
     Maybe "operators of child DNS zones"?
     
-    + good point.  And I'm happy you enjoyed any humor you got out of
+    + WJH: good point.  And I'm happy you enjoyed any humor you got out of
       it :-)
 
 **** WONTDO In general, the inclusion of "zone" after "DNS" will help clarify.
 
-     + I'm not sure that's actually wise in most other places.  Is
+     + WJH: I'm not sure that's actually wise in most other places.  Is
        there a few places you were thinking of?
 
 **** DONE 2.1.1.2 and 2.1.1.2.1.
@@ -149,12 +152,12 @@
       allocated out of that registry.
 
 
-      + Good point; changed to "Specifically: a parental agent must not copy data blindly
+      + WJH: Good point; changed to "Specifically: a parental agent must not copy data blindly
 	and must understand the semantics associated with an bit in
 	the Type Bit Map field that has been set to 1."
 
 
-      + New IANA text: For new assignments to be made to this
+      + WJH: New IANA text: For new assignments to be made to this
         registry, a new RFC must be published via a Standards Action.
 
 *** DONE Joel Jaeggli
@@ -169,11 +172,17 @@
       it appears that this went to to short a last call for it's intended
       status (standards track)
 
-      + this was reissued already right?  (yep: aug 08)
+      + WJH: this was reissued already right?  (yep: aug 08)
 
-*** TODO Pete Resnick
+*** DONE Pete Resnick
+    :LOGBOOK:
+    - State "DONE"       from "TODO"       [2014-09-02 Tue 16:52]
+    :END:
 
-***** TODO DISCUSS:
+***** DONE DISCUSS:
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-02 Tue 16:52]
+      :END:
     The writeup and the document itself say that this is going to be
     Standards Track, which seems appropriate. But the datatracker says that
     it is going for Informational, the Last Call went out as Informational,
@@ -189,11 +198,15 @@
     + think this is done right?  (yep: aug 08)
 
 
-***** TODO COMMENT:
+***** DONE COMMENT:
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-09-02 Tue 16:52]
+      :END:
     ----------------------------------------------------------------------
 
 ******* DONE Good document. A few simple comments:
 	:LOGBOOK:
+	- State "DONE"       from "DONE"       [2014-09-02 Tue 16:52]
 	- State "DONE"       from "TODO"       [2014-09-02 Tue 13:43]
 	:END:
 
@@ -212,11 +225,22 @@
           out-of-band mechanism (such as through pushing a button via a web
           interface).
 
-        + suggested text added
+        + WJH: suggested text added
 
-******* TODO Sections 4.2, 4.3, and 4.4: The MAYs in there MAY be inappropriate. The
+******* DONE Sections 4.2, 4.3, and 4.4: The MAYs in there MAY be inappropriate. The
+	:LOGBOOK:
+	- State "DONE"       from "TODO"       [2014-09-02 Tue 16:52]
+	:END:
     	ones about providing interfaces sure don't seem like protocol options. On
     	the others it's hard to tell. Please review. The SHOULD in 4.4 seems also
     	suspiciously wrong.
 
-* 
+	+ WJH: I changed a few of the MAYs, but most seemed appropriate.
+          The SHOULD on the documentation is somewhat important, as
+          without documentation from the parental agent stating they
+          support the CSYNC type, and how they're making use of it,
+          clients have no way to know whether the protocol can be
+          used.  There is no discovery that you get something good
+          from your parent if you publish a CSYNC record.  The parent
+          must document they're support for children to know they can
+          make use of it.

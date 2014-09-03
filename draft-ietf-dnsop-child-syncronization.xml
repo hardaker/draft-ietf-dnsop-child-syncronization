@@ -428,12 +428,15 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 
       <t>Parental agents MAY offer a configuration interface to allow
       child operators to specify which nameserver should be considered
-      the master to send data queries too.  This master MAY be a
-      different nameserver than the publically listed nameservers in
-      the NS set (i.e., it may be a "hidden master").</t>
+      the master to send data queries too.  Note that this master
+      could be a different nameserver than the publically listed
+      nameservers in the NS set (i.e., it may be a "hidden
+      master").</t>
 
-      <t>Parental agents MAY offer a programmatic interface to let children
-      indicate that new CSYNC records and data are available for polling.</t>
+      <t>Parental agents with a large number of clients may choose to
+      offer a programmatic interface to let their children indicate
+      that new CSYNC records and data are available for polling rather
+      than polling every child on a frequent basis.</t>
       </section>
 
       <section title="Out-of-balliwick NS Records">
@@ -441,7 +444,7 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	pointed at does not fall within the zone itself, there is no
 	way for the parent to safely update the associated glue
 	records.  Thus, the child DNS operator MAY indicate that the
-	NS records should be synchronized, and may set any glue record
+	NS records should be synchronized, and MAY set any glue record
 	flags (A, AAAA) as well, but the parent will only update those
 	glue records which are below the child's delegation point.</t>
 
