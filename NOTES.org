@@ -558,6 +558,24 @@
       stated in the security considerations; thanks]
 
 *** TODO Stephen Farrell
+
+***** TODO 
+      - general: Couldn't a child ask for its CSYNC record to be
+      published in the parent? (and so on up...) I think you should
+      say a parent MUST NOT take a child's CSYNC in the same way
+      that you say to not use CSYNC for DS RRs.
+
+***** DONE 
+      - 2.1.1.2.1: Is the meaning of "blindly" sufficiently clear
+      that all implementers and deployers will get this right?
+      I'm willing to believe you if you say it is.
+
+      WJH: made the following change, which seems sufficient?:
+
+	-  Specifically: a parental agent must not copy data blindly
+	+  Specifically: a parental agent must not just copy the data
+
+
 *** TODO Ted Lemon
 
 #+TODO: TODO | DONE DUP DUP
