@@ -652,11 +652,19 @@
 
       Let me know if you think this is insufficient.
 
-***** TODO In 2.1.2, why SHOULD and not MUST here?
+***** DONE In 2.1.2, why SHOULD and not MUST here?
 
             Implementations that support parsing of presentation format
             records SHOULD be able to read and understand these TYPE
             representations as well.
+
+      WJH: Because parsers don't necessarily need to understand the
+      semantics of the record.  They just need to be able to keep
+      reading and store the data.  Storing the data in ascii text is
+      just fine if they're not going to process it in any other way.
+      It'd be better if they understood it, but I can see cases where
+      they don't full support everything (eg, new types listed even
+      though they know some of them).
 
 ***** TODO In 3.2.1, what happens if the parent queries a host, and that host no longer
       appears in the updated NS record?   I think this is Mostly Harmless, but might
