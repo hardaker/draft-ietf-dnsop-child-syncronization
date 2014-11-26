@@ -449,4 +449,21 @@
 
 *** Barry Leiba
 
+***** In the definition of the CSYNC Flags registry in the IANA
+      Considerations, you have two conflicting statements:
+
+      ONE:
+         Assignment of new flag values are subject to
+         "RFC Required" specifications [RFC5226].
+
+      TWO:
+         For new assignments to be made to this registry, a new RFC must be
+         published via a Standards Action.
+
+      Which is it: RFC Required, or Standards Action?  They are
+      different (the former allows for Experimental or Informational
+      RFCs, and RFCs in the Independent or IRTF streams; the latter
+      requires a Standards Track RFC in the IETF stream).  There's
+      also "IETF Review", which requires an IETF stream RFC, but
+      allows Informational or Experimental).
 #+TODO: TODO | DONE DUP

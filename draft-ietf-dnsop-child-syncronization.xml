@@ -547,8 +547,9 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
     </figure>
     </t>
 
-    <t>For new assignments to be made to this registry, a new RFC must be
-    published via a Standards Action.</t>
+    <t>For new assignments to be made to this registry, a new
+    standards track RFC must be published via a Standards Action.</t>
+
     </section>
     <section title="Acknowledgments">
       <t>A thank you goes out to Warren Kumari and Ólafur Guðmundsson,
