@@ -412,7 +412,7 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	<t>There is no inline mechanism for a parental agent to report
 	errors to operators of child zones.  Thus, the only error
 	reporting mechanisms must be out of band, such as through a
-	web console or over email.  Parental agents SHOULD, at a
+	web console or over email.  Parental agents should, at a
 	minimum, at least log errors encountered when processing CSYNC
 	records.  Child operators utilizing the "immediate" flag that
 	fail to see an update within the parental agent's specified
@@ -431,7 +431,7 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
       they would all be equal, but this is not possible in practice due
       to synchronization delays and transfer failures).</t>
 
-      <t>Parental agents MAY offer a configuration interface to allow
+      <t>Parental agents may offer a configuration interface to allow
       child operators to specify which nameserver should be considered
       the master to send data queries too.  Note that this master
       could be a different nameserver than the publically listed
@@ -470,7 +470,7 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	<list>
 	  <t>The fact that they support CSYNC processing</t>
 	  <t>The Type Bit Map bits they support</t>
-	  <t>The frequency with which they poll clients (which MAY
+	  <t>The frequency with which they poll clients (which may
 	  also be configurable by the client)</t>
 	  <t>If they support the "immediate" flag</t>
 	  <t>If they poll a child's

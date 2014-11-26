@@ -449,7 +449,7 @@
 
 *** Barry Leiba
 
-***** In the definition of the CSYNC Flags registry in the IANA
+***** DONE In the definition of the CSYNC Flags registry in the IANA
       Considerations, you have two conflicting statements:
 
       ONE:
@@ -466,4 +466,80 @@
       requires a Standards Track RFC in the IETF stream).  There's
       also "IETF Review", which requires an IETF stream RFC, but
       allows Informational or Experimental).
-#+TODO: TODO | DONE DUP
+
+      WJH: Changed to be standards-track
+
+*** DONE Pete Resnick
+
+***** DONE Sections 4.2, 4.3, and 4.4:
+
+      The MAYs in there MAY be inappropriate. The ones about providing
+      interfaces sure don't seem like protocol options. On the others
+      it's hard to tell. Please review. The SHOULDs in 4.1 and 4.4 seems
+      also suspiciously wrong.
+
+
+      Pete: last time I responded with the following comment.  Maybe it
+      wasn't read, as the same comment is being repeated without a
+      response to the following comment: 
+
+  	+ WJH: I changed a few of the MAYs, but most seemed appropriate.
+            The SHOULD on the documentation is somewhat important, as
+            without documentation from the parental agent stating they
+            support the CSYNC type, and how they're making use of it,
+            clients have no way to know whether the protocol can be
+            used.  There is no discovery that you get something good
+            from your parent if you publish a CSYNC record.  The parent
+            must document they're support for children to know they can
+            make use of it.
+
+     Since you added additional text addressing the API related concern,
+     I changed one MAY to a "may" in the following sentence:
+
+          -   <t>Parental agents MAY offer a configuration interface to allow
+          +   <t>Parental agents may offer a configuration interface to allow
+              child operators to specify which nameserver should be considered
+              the master to send data queries too.
+
+     The 4.3 section didn't have similar MAYs, so I didn't do
+     anything about them.
+
+     In 4.4, I made the following change:
+
+          -  <t>The frequency with which they poll clients (which MAY
+          +  <t>The frequency with which they poll clients (which may
+             also be configurable by the client)</t>
+
+
+     For the SHOULD in 4.1, I downcased it as well:
+
+          - Parental agents SHOULD, at a
+          + Parental agents should, at a
+            minimum, at least log errors encountered when processing CSYNC
+            records.
+
+     For the SHOULD in 4.4, I didn't change it.  Because, as mentioned
+     previously, publicly documenting the parameters is fairly
+     important.
+
+     Maybe these address your concerns?  Your previous comment was
+     rather vague in exactly what your issues were, so I'm guessing at
+     what you wanted done.
+
+*** TODO Richard Barnes
+
+***** TODO Adding on to Ted's DISCUSS:
+
+      The Security Considerations need to make clear that this
+      mechanism MUST NOT be used to synchronize DS records between
+      child and parent (whether this is allowed through the base
+      protocol or some extension).  This is because the DS records are
+      the only thing the parent has that allows it to validate all the
+      DNSSEC signatures that it is required to verify -- if an
+      attacker can change the DS record, then it can change any other
+      record it wants to.
+
+*** TODO Stephen Farrell
+*** TODO Ted Lemon
+
+#+TODO: TODO | DONE DUP DUP
