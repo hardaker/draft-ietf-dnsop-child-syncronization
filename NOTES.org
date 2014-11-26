@@ -559,11 +559,14 @@
 
 *** TODO Stephen Farrell
 
-***** TODO 
+***** DONE 
       - general: Couldn't a child ask for its CSYNC record to be
       published in the parent? (and so on up...) I think you should
       say a parent MUST NOT take a child's CSYNC in the same way
       that you say to not use CSYNC for DS RRs.
+
+      WJH: added a note mentioning that CSYNC, CDS, CDNSKEY records
+      MUST NOT be synchronized.
 
 ***** DONE 
       - 2.1.1.2.1: Is the meaning of "blindly" sufficiently clear

@@ -4,7 +4,7 @@
   <!ENTITY rfc1982 PUBLIC '' 'reference.RFC.1982.xml'>
   <!ENTITY rfc3597 PUBLIC '' 'reference.RFC.3597.xml'>
   <!ENTITY rfc5226 PUBLIC '' 'reference.RFC.5226.xml'>
-  <!ENTITY I-D.ietf-dnsop-delegation-trust-maintainance SYSTEM "http://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-dnsop-delegation-trust-maintainance.xml">
+  <!ENTITY rfc7344 PUBLIC '' 'reference.RFC.7344.xml'>
 ]>
 <?rfc strict="yes" ?>
 <?rfc toc="yes" ?>
@@ -84,7 +84,7 @@
       <t>This specification was not designed to synchronize DNSSEC
       security records, such as DS RRsets. For a solution to this
       problem, see the complementary solution <xref
-      target="I-D.ietf-dnsop-delegation-trust-maintainance" />, which is designed to
+      target="RFC7344" />, which is designed to
       maintain security delegation information. In addition, this
       specification does not address how to perform bootstrapping
       operations, including to get the required initial DNSSEC-secured
@@ -499,13 +499,15 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
       bootstrapping operations to get the required initial
       DNSSEC-secured operating environment in place.  Additionally,
       this specification was not designed to synchronize DNSSEC
-      security records, such as DS pointers.  Thus, implementations of
-      this protocol MUST NOT use it to synchronize DS records or
-      DNSKEY materials. Similarly, future documents extending this
-      protocol MUST NOT offer the ability to syncronize DS or DNSKEY
-      materials. For such a solution, please see the complimentary
-      solution <xref
-      target="I-D.ietf-dnsop-delegation-trust-maintainance" /> for
+      security records, such as DS pointers, or the CSYNC record
+      itself. Thus, implementations of this protocol MUST NOT use it
+      to synchronize DS records, DNSKEY materials, CDS records,
+      CDNSKEY records, or CSYNC records. Similarly, future documents
+      extending this protocol MUST NOT offer the ability to
+      synchronize DS, DNSKEY materials, CDS records, CDNSKEY records,
+      or CSYNC records. For such a solution, please see the
+      complimentary solution <xref
+      target="RFC7344" /> for
       maintaining security delegation information.</t>
     </section>
     <section title="IANA Considerations">
@@ -585,7 +587,7 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
       &rfc4033;
       &rfc4035;
       &rfc5226;
-      &I-D.ietf-dnsop-delegation-trust-maintainance;
+      &rfc7344;
     </references>
   </back>
 </rfc>
