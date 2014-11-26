@@ -631,8 +631,7 @@
         + as it would leave the parent/child relationship without any
         + address linkage.
 
-
-***** TODO Point 3--
+***** Point 3--
 
       I don't think you've specifically excluded RRtypes not mentioned in section
       3.2.  It's seems obvious to me based on what's stated in section 2 that the
@@ -642,7 +641,16 @@
       E.g., if it's okay for cooperating child name servers to set bits not listed
       here, and for cooperating parent name servers to process them, you should say
       so.
-      Comment (2014-09-17 for -03) ￼
+
+      WJH: This is stated, and I think you missed it.  Section
+      2.1.1.2.1 (about the type bit map field) states (slightly
+      different based on a comment from Stephen, who did see it):
+
+	  Specifically: a parental agent must not just copy the data
+	  and must understand the semantics associated with an bit in
+	  the Type Bit Map field that has been set to 1.
+
+      Let me know if you think this is insufficient.
 
 ***** TODO In 2.1.2, why SHOULD and not MUST here?
 
@@ -658,4 +666,4 @@
       zone, and were no longer being updated.   This is probably worth mentioning as
       an operational consideration.
 
-#+TODO: TODO | DONE DUP DUP
+#+TODO: TODO | DONE DUP DUP NOFIX
