@@ -1,4 +1,4 @@
-* Notes from last call
+* Notes from last call (-02)
   :LOGBOOK:
   - State "DONE"       from ""           [2014-09-02 Tue 16:52]
   :END:
@@ -406,3 +406,47 @@
       creates the registry). Not sure though.
       
       + WH: done previously based on text, I think, from Warren if I recall.
+
+* Notes from IESG review (-03)
+
+*** DONE Alia Atlas
+
+***** DONE First sentence in Sec 1 is missing an it:
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-11-25 Tue 16:05]
+      :END:
+      "This document specifies how a child zone in the DNS ([RFC1034],
+         [RFC1035]) can publish a record to indicate to a parental agent that
+         can copy and process certain records from the child zone."
+
+      WJH: Added
+
+***** DUP In Sec 2: What does unpunishable data mean in
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2014-11-25 Tue 16:06]
+      :END:
+      "Errors due to unsupported Type Bit Map bits, or otherwise
+      nonpunishable data, SHALL result in no change to the parent zone's
+      delegation information for the Child."
+
+      WJH: It was a typo and already changed to "publishable"
+
+***** DONE In Sec 3.1:
+
+      It says " If the SOA serial numbers are equal but less than the
+      CSYNC record's SOA Serial Field [RFC1982], the record MUST NOT be
+      processed."  which seems to contradict what is stated in Sec
+      2.1.1.1 "If the soaminimum flag is not set, parental agents MUST
+      ignore the value in the SOA Serial Field.  Clients can set the
+      field to any value if the soaminimum flag is unset, such as the
+      number zero."
+
+      Perhaps I'm missing a relevant DNS clue?
+
+      WJH: good catch!  Changed to "If the soaminimum flag is set and the
+      SOA serial numbers are equal but less than the CSYNC record's SOA
+      Serial Field..."
+
+*** Barry Leiba
+
+#+TODO: TODO | DONE DUP

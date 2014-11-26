@@ -55,7 +55,7 @@
 
       <t>This document specifies how a child zone in the DNS (<xref
       target="RFC1034" />, <xref target="RFC1035" />) can publish a
-      record to indicate to a parental agent that can copy and
+      record to indicate to a parental agent that it can copy and
       process certain records from the child zone.  The existence
       of the record and any change in its value can be monitored by a
       parental agent and acted on depending on local policy.</t>
@@ -326,7 +326,8 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	be processed.  The operation MAY be restarted or retried in
 	the future.</t>
 
-	<t>If the SOA serial numbers are equal but less than the CSYNC
+	<t>If the soaminimum flag is set and the
+        SOA serial numbers are equal but less than the CSYNC
 	record's SOA Serial Field <xref target="RFC1982" />,
 	the record MUST NOT be processed.
 	If state is being kept by the parental agent and the SOA
