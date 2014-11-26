@@ -371,7 +371,10 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	<t>Parental agents MAY refuse to perform NS updates if the
 	replacement records fail to meet NS record policies required
 	by the parent zone (e.g. "every child zone must have at least
-	2 NS records").</t>
+	2 NS records").  Parental agents MUST NOT perform NS updates
+	if there are no NS records returned in a query, as verified by
+	DNSSEC denial of existence protection.  This situation should
+	never happen unless the child nameservers are misconfigured.</t>
       </section>
       <section title="The A and AAAA types">
 	<t>The A and AAAA type flags indicates that the A and AAAA
@@ -389,7 +392,15 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	as is.  If a given address type is set and the child's zone
 	contains no data for that type (as proven by appropriate NSEC
 	or NSEC3 records), then the result in the parent's delegation
-	records for the child should be an empty set.
+	records for the child should be an empty set.  However, if the
+	end result of processing would leave no glue records present
+	in the parent zone for any of the of the in-bailiwick NS
+	records, then the parent MUST NOT update the glue address
+	records.  I.E., if the result of the processing would leave no
+	in-bailiwick A or AAAA records when there are in-bailiwick NS
+	records, then processing of the address records can not happen
+	as it would leave the parent/child relationship without any
+	address linkage.
 	</t>
 
 	<t>The procedure for querying for A and AAAA records MUST

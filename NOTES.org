@@ -568,6 +568,12 @@
       WJH: added a note mentioning that CSYNC, CDS, CDNSKEY records
       MUST NOT be synchronized.
 
+      [note, however, that a parent publishing a CSYNC record at the
+      parent *for the child* would certainly be interesting and really
+      only affect broken resolvers that were willing to accept
+      non-authoratative answers; none the less, I don't mind
+      mentioning it]
+
 ***** DONE 
       - 2.1.1.2.1: Is the meaning of "blindly" sufficiently clear
       that all implementers and deployers will get this right?
@@ -580,5 +586,76 @@
 
 
 *** TODO Ted Lemon
+
+***** TODO Point 1--
+
+      2.1.1.1 doesn't talk about SOA serial number overflow.  It's not clear to me
+      that the security goal intended by this section is correctly addressed if the
+      implementation assumes that the comparison operators defined in section 3.2 of
+      RFC 1982 are used, rather than doing a simple unsigned compare.
+
+      I don't think there's a clearly correct answer here, but the issue should be
+      documented and, ideally, a choice should be made.   To clear this DISCUSS, the
+      document needs to say which of the two sets of comparison operators apply, and
+      needs to explain how serial number wrap events are accounted for (or that they
+      are not accounted for, and this is an open issue with security implications).
+
+      The easiest way to fix this would be to require a comparison for equality, but
+      I realize that this would place an additional burden on implementations which
+      may be impractical.
+
+***** DONE Point 2--
+
+      In 3.2.1, you don't say what to do if the name server returns an NS record
+      listing names queries on which result in NXDOMAIN, or for which neither A nor
+      AAAA records exist.
+
+      WJH: To the last paragraph of the NS section, I added two sentences:
+
+        - 2 NS records").</t>
+        + 2 NS records").  Parental agents MUST NOT perform NS updates
+        + if there are no NS records returned in a query, as verified by
+        + DNSSEC denial of existence protection.  This situation should
+        + never happen unless the child nameservers are misconfigured.</t>
+
+      WJH: and to the address section, added:
+
+        - records for the child should be an empty set.
+        + records for the child should be an empty set.  However, if the
+        + end result of processing would leave no glue records present
+        + in the parent zone for any of the of the in-bailiwick NS
+        + records, then the parent MUST NOT update the glue address
+        + records.  I.E., if the result of the processing would leave no
+        + in-bailiwick A or AAAA records when there are in-bailiwick NS
+        + records, then processing of the address records can not happen
+        + as it would leave the parent/child relationship without any
+        + address linkage.
+
+
+***** TODO Point 3--
+
+      I don't think you've specifically excluded RRtypes not mentioned in section
+      3.2.  It's seems obvious to me based on what's stated in section 2 that the
+      intention of the document is to only support these two RRtypes, but I think it
+      is necessary to say so explicitly, if that is in fact what is intended.   If
+      something else is intended, text explaining what is intended should be added.  
+      E.g., if it's okay for cooperating child name servers to set bits not listed
+      here, and for cooperating parent name servers to process them, you should say
+      so.
+      Comment (2014-09-17 for -03) ￼
+
+***** TODO In 2.1.2, why SHOULD and not MUST here?
+
+            Implementations that support parsing of presentation format
+            records SHOULD be able to read and understand these TYPE
+            representations as well.
+
+***** TODO In 3.2.1, what happens if the parent queries a host, and that host no longer
+      appears in the updated NS record?   I think this is Mostly Harmless, but might
+      be worth mentioning.   Also, in principle if the old server is left running but
+      no longer authoritative, this whole scheme would fail if, for example, it had
+      been the master prior to the change, were not configured to no longer serve the
+      zone, and were no longer being updated.   This is probably worth mentioning as
+      an operational consideration.
 
 #+TODO: TODO | DONE DUP DUP
