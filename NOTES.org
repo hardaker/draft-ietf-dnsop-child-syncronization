@@ -526,9 +526,9 @@
      rather vague in exactly what your issues were, so I'm guessing at
      what you wanted done.
 
-*** TODO Richard Barnes
+*** DONE Richard Barnes
 
-***** TODO Adding on to Ted's DISCUSS:
+***** DONE Adding on to Ted's DISCUSS:
 
       The Security Considerations need to make clear that this
       mechanism MUST NOT be used to synchronize DS records between
@@ -538,6 +538,24 @@
       DNSSEC signatures that it is required to verify -- if an
       attacker can change the DS record, then it can change any other
       record it wants to.
+
+      WJH: Ok, I added the following two middle sentences, marked with
+      [new].  Do they seem sufficient?
+
+      ... DNSSEC-secured operating environment in place.
+      Additionally, this specification was not designed to synchronize
+      DNSSEC security records, such as DS pointers.  [new] Thus,
+      implementations of this protocol MUST NOT use it to synchronize
+      DS records or DNSKEY materials. [new] Similarly, future
+      documents extending this protocol MUST NOT offer the ability to
+      syncronize DS or DNSKEY materials. For such a solution, please
+      see the ...
+
+      [the document makes it pretty clear in a number of places this
+      must not be done, including the fact you aren't supposed to even
+      use bits that aren't documented and the DS bit wasn't defined,
+      but that being said: it's a good point that it should be well
+      stated in the security considerations; thanks]
 
 *** TODO Stephen Farrell
 *** TODO Ted Lemon

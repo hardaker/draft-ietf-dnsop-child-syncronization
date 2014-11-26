@@ -499,8 +499,12 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
       bootstrapping operations to get the required initial
       DNSSEC-secured operating environment in place.  Additionally,
       this specification was not designed to synchronize DNSSEC
-      security records, such as DS pointers.  For such a
-      solution, please see the complimentary solution <xref
+      security records, such as DS pointers.  Thus, implementations of
+      this protocol MUST NOT use it to synchronize DS records or
+      DNSKEY materials. Similarly, future documents extending this
+      protocol MUST NOT offer the ability to syncronize DS or DNSKEY
+      materials. For such a solution, please see the complimentary
+      solution <xref
       target="I-D.ietf-dnsop-delegation-trust-maintainance" /> for
       maintaining security delegation information.</t>
     </section>
