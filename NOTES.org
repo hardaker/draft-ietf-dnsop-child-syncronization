@@ -666,12 +666,29 @@
       they don't full support everything (eg, new types listed even
       though they know some of them).
 
-***** TODO In 3.2.1, what happens if the parent queries a host, and that host no longer
+***** DONE In 3.2.1, what happens if the parent queries a host, and that host no longer
       appears in the updated NS record?   I think this is Mostly Harmless, but might
       be worth mentioning.   Also, in principle if the old server is left running but
       no longer authoritative, this whole scheme would fail if, for example, it had
       been the master prior to the change, were not configured to no longer serve the
       zone, and were no longer being updated.   This is probably worth mentioning as
       an operational consideration.
+
+      WJH: Added the following text updates to address these points:
+
+      To the bottom of section 3.2.1:
+        <t>Note that it is permissible for a child's nameserver to
+        return a CSYNC record that removes the queried nameserver
+        itself from the future NS or address set.</t>
+
+      To the bottom of section 4.2:
+
+        <t>Children that wish to phase out a nameserver will need to
+        publish the CSYNC record to the nameserver being removed and
+        wait for the parental agent to process the published record
+        before turning off the service.  This is required because the
+        child can not control which nameserver in the existing NS set
+        the parental agent may choose to query when performing CSYNC
+        processing.</t>
 
 #+TODO: TODO | DONE DUP DUP NOFIX

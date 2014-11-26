@@ -375,6 +375,10 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	if there are no NS records returned in a query, as verified by
 	DNSSEC denial of existence protection.  This situation should
 	never happen unless the child nameservers are misconfigured.</t>
+
+        <t>Note that it is permissible for a child's nameserver to
+        return a CSYNC record that removes the queried nameserver
+        itself from the future NS or address set.</t>
       </section>
       <section title="The A and AAAA types">
 	<t>The A and AAAA type flags indicates that the A and AAAA
@@ -453,6 +457,14 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
       offer a programmatic interface to let their children indicate
       that new CSYNC records and data are available for polling rather
       than polling every child on a frequent basis.</t>
+
+      <t>Children that wish to phase out a nameserver will need to
+      publish the CSYNC record to the nameserver being removed and
+      wait for the parental agent to process the published record
+      before turning off the service.  This is required because the
+      child can not control which nameserver in the existing NS set
+      the parental agent may choose to query when performing CSYNC
+      processing.</t>
       </section>
 
       <section title="Out-of-balliwick NS Records">
