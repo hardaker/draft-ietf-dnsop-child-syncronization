@@ -447,7 +447,7 @@
       SOA serial numbers are equal but less than the CSYNC record's SOA
       Serial Field..."
 
-*** Barry Leiba
+*** DONE Barry Leiba
 
 ***** DONE In the definition of the CSYNC Flags registry in the IANA
       Considerations, you have two conflicting statements:
@@ -557,7 +557,7 @@
       but that being said: it's a good point that it should be well
       stated in the security considerations; thanks]
 
-*** TODO Stephen Farrell
+*** DONE Stephen Farrell
 
 ***** DONE 
       - general: Couldn't a child ask for its CSYNC record to be
