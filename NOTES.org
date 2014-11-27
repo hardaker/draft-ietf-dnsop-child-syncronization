@@ -585,9 +585,9 @@
 	+  Specifically: a parental agent must not just copy the data
 
 
-*** TODO Ted Lemon
+*** DONE Ted Lemon
 
-***** TODO Point 1--
+***** DONE Point 1--
 
       2.1.1.1 doesn't talk about SOA serial number overflow.  It's not clear to me
       that the security goal intended by this section is correctly addressed if the
@@ -603,6 +603,43 @@
       The easiest way to fix this would be to require a comparison for equality, but
       I realize that this would place an additional burden on implementations which
       may be impractical.
+
+      WJH: Of all the comments received this one confuses me the most.
+      Mostly because I think 1982 is quite clear about how to do the
+      comparison operator and there is only one, the "less than"
+      operation and it is discussed in 3.2 of 1982.  So, I'm not
+      entirely clear what you're looking for.  I can add some text to
+      explicitly mention wrapping, but that is exactly what 1982 is
+      about: how to do comparisons with wrapping.  So, trying to add
+      something that at least more explicitly mentions what I think
+      you're looking for, I added this to the bottom 2.1.1.1:
+
+	  <t>Although Section 3.2 of <xref target="RFC1982" />
+	  describes how to properly implement a less-than comparison
+	  operation with SOA serial numbers that may wrap beyond the
+	  32-bit value in both the SOA record and the CSYNC record, it
+	  is important than a child using the soaminimum flag must not
+	  increment it's SOA serial number value more than 2^16
+	  (including any 32-bit wrapping) within the period of time
+	  that a parent might wait between polling the child for the
+	  CSYNC record.</t>
+
+      It's actually not a security feature so much as a operational
+      feature to prevent a parent from toggling back and forth between
+      two values if one nameserver does not have the most recent data
+      set.  But, the DNSSEC signature lifetimes could be long enough
+      to allow for replays if the serial numbers increased by more
+      than 2^16 within it.  So...  I added this:
+
+          <t>To ensure that an older CSYNC record making use of the
+          soaminimum flag can not be replayed to revert values, the SOA
+          serial number MUST NOT be incremented by more than 2^16
+          during the lifetime of the signature window of the associated
+          RRSIGs signing the SOA and CSYNC records.  Note that this is
+          independent of whether or not the increment causes the 2^32 bit
+          serial number field to wrap.</t>
+
+      Is this (these) sufficient to address your concerns?
 
 ***** DONE Point 2--
 
@@ -631,7 +668,7 @@
         + as it would leave the parent/child relationship without any
         + address linkage.
 
-***** Point 3--
+***** NOFIX Point 3--
 
       I don't think you've specifically excluded RRtypes not mentioned in section
       3.2.  It's seems obvious to me based on what's stated in section 2 that the
@@ -691,4 +728,4 @@
         the parental agent may choose to query when performing CSYNC
         processing.</t>
 
-#+TODO: TODO | DONE DUP DUP NOFIX
+#+TODO: TODO | DONE DUP NOFIX 

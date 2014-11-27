@@ -194,6 +194,16 @@
 	  <t>Parental agents MAY cache SOA serial numbers from
 	  data they use and refuse to process data from zones older
 	  than the last instance they pulled data from.</t>
+
+	  <t>Although Section 3.2 of <xref target="RFC1982" />
+	  describes how to properly implement a less-than comparison
+	  operation with SOA serial numbers that may wrap beyond the
+	  32-bit value in both the SOA record and the CSYNC record, it
+	  is important than a child using the soaminimum flag must not
+	  increment it's SOA serial number value more than 2^16 within
+	  the period of time that a parent might wait between polling
+	  the child for the CSYNC record.</t>
+
 	</section>
 	<section title="The Flags Field">
 	  <t>The Flags field contains 16 bits of boolean flags that define
@@ -532,6 +542,13 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
       complimentary solution <xref
       target="RFC7344" /> for
       maintaining security delegation information.</t>
+      <t>To ensure that an older CSYNC record making use of the
+      soaminimum flag can not be replayed to revert values, the SOA
+      serial number MUST NOT be incremented by more than 2^16
+      during the lifetime of the signature window of the associated
+      RRSIGs signing the SOA and CSYNC records.  Note that this is
+      independent of whether or not the increment causes the 2^32 bit
+      serial number field to wrap.</t>
     </section>
     <section title="IANA Considerations">
       <t>This document defines a new DNS Resource Record Type, named
