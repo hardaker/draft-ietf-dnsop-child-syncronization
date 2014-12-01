@@ -627,7 +627,10 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
       to the document (in no particular order): Matthijs Mekking, Petr
       Spacek, 神明達哉, Pete Resnick, Joel Jaeggli, Brian Haberman,
       Warren Kumari, Adrian Farrel, Alia Atlas, Barry Leiba, Richard
-      Barnes, Stephen Farrell, and Ted Lemon.</t>
+      Barnes, Stephen Farrell, and Ted Lemon.  Lastly, the DNSOP
+      working group chairs Tim Wicinski and Suzanne Woolf have been a
+      tremendous help in getting this draft moving forward to
+      publication.</t>
 
       <t>A special thanks goes to Roy Arends, for taking the "bite out
       of that hamburger" challenge while discussing this document.</t>
