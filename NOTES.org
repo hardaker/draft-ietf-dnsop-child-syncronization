@@ -546,8 +546,7 @@
 	the TTL field, for which the parent MAY want to select a
 	different value) into the parent's delegation information.
 
-
-***** TODO Section 3.2: what if the followup NS query results in 'no data'?  Of
+***** DUP Section 3.2: what if the followup NS query results in 'no data'?  Of
        course, this means the child zone is broken, but if the parent also
        removes the NS RRsets, subsequent resolution for the zone will
        immediately fail at the parent zone; on the other hand, if the
@@ -558,6 +557,11 @@
        leaving the half-broken state longer.  In any case, I think it would
        be nicer to mention this case (and what the parent should do) in
        this document.
+
+       WJH: I think this was addressed based on concerns by the IESG
+       as well.  Specifically: "Parental agents MUST NOT perform NS
+       updates if there are no NS records returned in a query, as
+       verified by DNSSEC denial of existence protection."
 
 ***** TODO Section 4.2
        We may want to be clearer about how the child name servers and their
