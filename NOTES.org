@@ -563,7 +563,7 @@
        updates if there are no NS records returned in a query, as
        verified by DNSSEC denial of existence protection."
 
-***** TODO Section 4.2
+***** NOFIX Section 4.2
        We may want to be clearer about how the child name servers and their
        addresses are determined to send CSYNC queries if they are not
        manually configured.  That is, this should essentially come from
@@ -574,6 +574,17 @@
        records at once, making the old ones unworkable, and expect the
        parent will catch up with it.  This may be obvious in some sense,
        but may still be worth noting.
+
+       WJH: The level of dedication of the parental agent certainly
+       comes into play.  If the parental agent is choosing a random NS
+       to query, and that NS is out of date then a problem certainly
+       will occur (specifically: a timing issue will arise until the
+       parental agent eventually queries an up to date one).  However,
+       note that the draft is not implementing a push mechanism anyway
+       so timeliness is probably not going to be fast in the first
+       place.
+
+       Section 4.2 already covers this the best we can, I think.
 
 ***** TODO Section 4.3
 
