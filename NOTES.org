@@ -407,6 +407,153 @@
       
       + WH: done previously based on text, I think, from Warren if I recall.
 
+*** TODO 神明達哉
+***** DONE Section 1 (introduction), the first paragraph:
+
+        This document specifies how a child zone in the DNS ([RFC1034],
+        [RFC1035]) can publish a record to indicate to a parental agent that
+        it may copy and process certain records from the child zone.  The
+        existence of and value change of the record may be monitored by a
+        parental agent and acted on as appropriate.
+
+      I vaguely remember someone already pointed this out, but anyway: I'm
+      afraid the term "parental agent" is not so widely shared that we can
+      safely use it without first giving the definition.  One easy way to
+      address this would be to add a forward reference to Section 1.1 at
+      the first occurrence of the term.  If possible, it would be even
+      nicer if we can avoid using this term until the definition is given
+      in Section 1.1.  For the same reason, it would be safer to avoid
+      using it in the abstract.
+
+      WJH: I've put in a forward reference in the introduction.  I'm
+      not worried about the abstract as much, as any serious reader
+      will likely read on anyway.  And the point of the term was to
+      make sure we don't say something confusing like "parent" when
+      there is more than one.  There is no standard term, and the best
+      that the WG came up with (thanks to Olafur) is the new term.
+      But a forward reference in the introduction definitely makes
+      sense.
+
+          This document specifies how a child zone in the DNS ([RFC1034],
+      -   [RFC1035]) can publish a record to indicate to a parental agent that
+      -   it can copy and process certain records from the child zone.  The
+      -   existence of the record and any change in its value can be monitored
+      -   by a parental agent and acted on depending on local policy.
+      +   [RFC1035]) can publish a record to indicate to a parental agent (see
+      +   section Section 2 for a definition of "parental agent") that it can
+      +   copy and process certain records from the child zone.  The existence
+      +   of the record and any change in its value can be monitored by a
+      +   parental agent and acted on depending on local policy.
+
+
+***** TODO Section 3 (in general)
+       Do we need some way to avoid making the parental agent keep fetching
+       RRsets specified in CSYNC only to confirm they are still the latest?
+       draft-ietf-dnsop-delegation-trust-maintainance has a way to avoid
+       that by removing CDS/CDNSKEY once all parent name servers are
+       updated.
+
+***** TODO In Section 3.1, it suggests a sequence of CSYNC and other followup
+       queries enclosed by SOA queries, and requires serials of the SOAs be
+       identical (with a MUST).  I wonder if this is reliable enough for a
+       rapidly changing zone, such as those accepting dynamic updates at a
+       very high rate.  We might say such cases are out of scope of this
+       mechanism, but I personally think such an environment is not so
+       deviant that a standard-track protocol can casually ignore.  At the
+       very least I would like to see some explicit consideration text on
+       the expected limitation (if any) regarding this point
+
+***** TODO Section 3.1
+
+        [...]  If
+        state is being kept by the parental agent and the SOA serial number
+        is less than the last time a CSYNC record was processed, this CSYNC
+        record SHOULD NOT be processed.  Similarly, if state is being kept by
+        the parental agent and the SOA Serial Field of the CSYNC record is
+        less than the SOA Serial Field of the CSYNC record from last time,
+        then this CSYNC record SHOULD NOT be processed.
+
+       I'm not sure about the point of these "SHOULD NOT"s.  If it's okay
+       with ignoring mismatches with stored state, why would the parental
+       agent bother to keep the state in the first place?  Since keeping
+       the state itself is optional, it seems to make more sense to use
+       "MUST NOT" here.
+
+***** TODO Section 3.2
+
+        NS records found within the child's zone should be copied verbatim
+        and the result published within the parent zone should be an exact
+        matching set of NS records.
+
+       Does "verbatim" indicate that the TTL should also be copied?  The
+       same question applies to Section 3.2.2, although "verbatim" isn't
+       used in that section.
+
+***** TODO Section 3.2: what if the followup NS query results in 'no data'?  Of
+       course, this means the child zone is broken, but if the parent also
+       removes the NS RRsets, subsequent resolution for the zone will
+       immediately fail at the parent zone; on the other hand, if the
+       parent just ignores such result and keeps the NS RRset (and if it's
+       actually still usable), subsequent resolution will still somehow
+       work in many cases in practice.  I don't know if that's the desired
+       scenario, and we might rather make it fail sooner rather than
+       leaving the half-broken state longer.  In any case, I think it would
+       be nicer to mention this case (and what the parent should do) in
+       this document.
+
+***** TODO Section 4.2
+       We may want to be clearer about how the child name servers and their
+       addresses are determined to send CSYNC queries if they are not
+       manually configured.  That is, this should essentially come from
+       the NS and AAAA/A records at the parent zone, and some of these may
+       be obsolete or even unusable at the time of query (in fact,
+       reflecting such changes is exactly the purpose of these queries).
+       This also means the child cannot simply update all NS (or AAAA or A)
+       records at once, making the old ones unworkable, and expect the
+       parent will catch up with it.  This may be obvious in some sense,
+       but may still be worth noting.
+
+***** TODO Section 4.3
+
+        Children deploying NS records pointing to domain-names within their
+        own children (the "grandchildren") SHOULD ensure the grandchildren's
+        associated glue records are properly set before publishing the CSYNC
+        record.  I.e., it is imperative that proper communication and
+        synchronization exist between the child and the grandchild.
+
+       I'm afraid this setup requires more discussion.  In the following
+       configuration:
+       parent: example.com.
+       child: child.example.com.
+         child.example.com. NS ns.grand.child.example.com.
+         grand.child.example.com. NS ns.grand.child.example.com.
+         ns.grand.child.example.com. AAAA 2001:db8::1
+       grand child: grand.child.example.com.
+         ns.grand.child.example.com. AAAA 2001:db8::1
+       If the AAAA record is changed, the child will update its CSYNC record
+       with setting the bit for AAAA.  According to Section 3.1, the parental
+       agent will send a query for the AAAA record to the child's name
+       server, but it will return a delegation to the grandchild, not the
+       requested AAAA itself, let alone its RRSIG.  The parental agent
+       could then resolve and verify the AAAA separately, but it breaks the
+       "atomicity" of the operation that this section seems to seek by
+       enclosing the whole set of queries with two SOA queries.
+
+     - Section 6: unfortunately code 61 was already registered for OPENPGPKEY.
+        [ To be removed prior to publication: The CDS (59), CDNSKEY (60) and
+        the CSYNC records are all conceptually similar - if the code-point 61
+        happens to still be Unassigned when the IANA processes this, it would
+        be nice if that could be used for this.]
+
+     - Editorial nits
+       - Section 2: s/these/three/
+        The CSYNC RRType contains, in its RDATA component, these parts: an
+       - Section 2: s/Section Section/Section/ (there are several instances
+         of this error)
+        data is processed is described in Section Section 3.
+       - Section 2: s/any anything/anything/ (?)
+        if any of the validation results indicate any anything other than
+
 * Notes from IESG review (-03)
 
 *** DONE Alia Atlas

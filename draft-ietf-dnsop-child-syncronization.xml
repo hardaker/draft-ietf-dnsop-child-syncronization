@@ -55,7 +55,9 @@
 
       <t>This document specifies how a child zone in the DNS (<xref
       target="RFC1034" />, <xref target="RFC1035" />) can publish a
-      record to indicate to a parental agent that it can copy and
+      record to indicate to a parental agent (see section <xref
+      target="definitions" /> for a definition of "parental agent")
+      that it can copy and
       process certain records from the child zone.  The existence
       of the record and any change in its value can be monitored by a
       parental agent and acted on depending on local policy.</t>
@@ -119,7 +121,7 @@
       </section>
     </section>
 
-    <section title="Definition of the CSYNC RRType">
+    <section title="Definition of the CSYNC RRType" anchor="definitions">
       <t>The CSYNC RRType contains, in its RDATA component, these
       parts: an SOA serial number, a set of flags and a simple
       bit-list indicating the DNS RRTypes in the child that should be
