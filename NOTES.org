@@ -446,12 +446,25 @@
       +   parental agent and acted on depending on local policy.
 
 
-***** TODO Section 3 (in general)
+***** DONE Section 3 (in general)
        Do we need some way to avoid making the parental agent keep fetching
        RRsets specified in CSYNC only to confirm they are still the latest?
        draft-ietf-dnsop-delegation-trust-maintainance has a way to avoid
        that by removing CDS/CDNSKEY once all parent name servers are
        updated.
+
+       WJH: good point; I've added this to the operational
+       considerations section:
+
+       4.5.  Removal of the CSYNC records
+
+          Children MAY remove the CSYNC record upon noticing that the parent
+          zone has published the required records, thus eliminating the need
+          for the parent to continually query for the CSYNC record and all
+          corresponding records.  By removing the CSYNC record from the child
+          zone, the parental agent will only need to perform the query for the
+          CSYNC record and can stop processing when it finds it missing.  This
+          will reduce resource usage by both the child and the parental agent.
 
 ***** TODO In Section 3.1, it suggests a sequence of CSYNC and other followup
        queries enclosed by SOA queries, and requires serials of the SOAs be
