@@ -596,13 +596,17 @@
 
        I'm afraid this setup requires more discussion.  In the following
        configuration:
+
        parent: example.com.
+
        child: child.example.com.
-         child.example.com. NS ns.grand.child.example.com.
-         grand.child.example.com. NS ns.grand.child.example.com.
-         ns.grand.child.example.com. AAAA 2001:db8::1
+         child.example.com.            NS   ns.grand.child.example.com.
+         grand.child.example.com.      NS   ns.grand.child.example.com.
+         ns.grand.child.example.com.   AAAA 2001:db8::1
+
        grand child: grand.child.example.com.
-         ns.grand.child.example.com. AAAA 2001:db8::1
+         ns.grand.child.example.com.   AAAA 2001:db8::1
+
        If the AAAA record is changed, the child will update its CSYNC record
        with setting the bit for AAAA.  According to Section 3.1, the parental
        agent will send a query for the AAAA record to the child's name
