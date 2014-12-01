@@ -466,7 +466,7 @@
           CSYNC record and can stop processing when it finds it missing.  This
           will reduce resource usage by both the child and the parental agent.
 
-***** TODO In Section 3.1, it suggests a sequence of CSYNC and other followup
+***** DONE In Section 3.1, it suggests a sequence of CSYNC and other followup
        queries enclosed by SOA queries, and requires serials of the SOAs be
        identical (with a MUST).  I wonder if this is reliable enough for a
        rapidly changing zone, such as those accepting dynamic updates at a
@@ -475,6 +475,21 @@
        deviant that a standard-track protocol can casually ignore.  At the
        very least I would like to see some explicit consideration text on
        the expected limitation (if any) regarding this point
+
+       WJH: That's a valid concern.  I don't think we need to address
+       the exact way this should be handled, as that can be
+       implementation dependent.  So I've changed it to a SHOULD and
+       added the following bit of text as well:
+
+           If the SOA records from the first and last steps have different
+           serial numbers (for example, because the zone was edited and
+           republished during the interval between steps 1 and 4), then the
+       -   CSYNC record obtained in the second set MUST NOT be processed.  The
+       -   operation MAY be restarted or retried in the future.
+       +   CSYNC record obtained in the second set SHOULD NOT be processed
+       +   (rapidly changing child zones may need special consideration or
+       +   processing).  The operation MAY be restarted or retried in the
+       +   future.
 
 ***** TODO Section 3.1
 

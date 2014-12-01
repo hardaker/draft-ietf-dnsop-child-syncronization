@@ -334,9 +334,10 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	<t>If the SOA records from the first and last steps have
 	different serial numbers (for example, because the zone was
 	edited and republished during the interval between steps 1 and
-	4), then the CSYNC record obtained in the second set MUST NOT
-	be processed.  The operation MAY be restarted or retried in
-	the future.</t>
+	4), then the CSYNC record obtained in the second set SHOULD
+	NOT be processed (rapidly changing child zones may need
+	special consideration or processing).  The operation MAY
+	be restarted or retried in the future.</t>
 
 	<t>If the soaminimum flag is set and the
         SOA serial numbers are equal but less than the CSYNC
