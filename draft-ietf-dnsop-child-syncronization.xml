@@ -373,13 +373,15 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	information records for the child.</t>
 
 	<t>NS records found within the child's zone should be copied
-	verbatim and the result published within the parent zone
-	should be an exact matching set of NS records. If the child
-	has published a new NS record within their set, this record
-	should be added to the parent zone.  Similarly, if NS records
-	in the parent's delegation records for the child contain
-	records that have been removed in the child's NS set, then
-	they should be removed in the parent's set as well.</t>
+	verbatim (with the exception of the TTL field, for which the
+	parent MAY want to select a different value) and the result
+	published within the parent zone should be an exact matching
+	set of NS records. If the child has published a new NS record
+	within their set, this record should be added to the parent
+	zone.  Similarly, if NS records in the parent's delegation
+	records for the child contain records that have been removed
+	in the child's NS set, then they should be removed in the
+	parent's set as well.</t>
 
 	<t>Parental agents MAY refuse to perform NS updates if the
 	replacement records fail to meet NS record policies required
@@ -396,8 +398,9 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
       <section title="The A and AAAA types">
 	<t>The A and AAAA type flags indicates that the A and AAAA
 	address glue records for in-bailiwick NS records within the
-	child zone should be copied into the parent's delegation
-	information.</t>
+	child zone should be copied verbatim (with the exception of
+	the TTL field, for which the parent MAY want to select a
+	different value) into the parent's delegation information.</t>
 
 	<t>Queries should be sent by the parental agent to determine
 	the A and AAAA record addresses for each NS record within a NS
