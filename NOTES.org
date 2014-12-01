@@ -491,7 +491,7 @@
        +   processing).  The operation MAY be restarted or retried in the
        +   future.
 
-***** TODO Section 3.1
+***** NOFIX Section 3.1
 
         [...]  If
         state is being kept by the parental agent and the SOA serial number
@@ -506,6 +506,16 @@
        agent bother to keep the state in the first place?  Since keeping
        the state itself is optional, it seems to make more sense to use
        "MUST NOT" here.
+
+       WJH: I'm sort of on the fence with this one.  But in the end,
+       since keeping state itself isn't a requirement (and arguably
+       shouldn't be), then force a MUST there doesn't make a whole lot
+       of sense since one solution for ensuring compliance is not to
+       keep state!  It seems to me, just like some of the other issues
+       above, that operational considerations may insert some
+       restrictions we haven't thought of yet.
+
+       Anyone else have an opinion here?
 
 ***** TODO Section 3.2
 
