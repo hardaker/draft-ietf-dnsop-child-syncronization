@@ -616,6 +616,57 @@
        "atomicity" of the operation that this section seems to seek by
        enclosing the whole set of queries with two SOA queries.
 
+       WJH: There are really two separate problems here:
+
+       1) the operational issues of a child using a nameserver in the
+          control of a grandchild.  To address this, I've added a new
+          section in the operational considerations section:
+
+       +4.6.  Parent/Child/Grandchild Glue Synchronization
+       +
+       +   When a child needs to publish a CSYNC record that synchronizes NS and
+       +   A/AAAA glue records and the NS record is actually pointing to a child
+       +   of the child (a grandchild of the parent), then it is critical that
+       +   the glue records in the child point to the proper real addresses
+       +   records published by the grandchild.  It is assumed that if a child
+       +   is using a grandchild's nameserver that they must be in careful
+       +   synchronization.  Specifically, this specification requires this to
+       +   be the case.
+
+       2) And the harder problem of how to handle the SOA transaction
+          synchronization across multiple domains.
+
+          I think to address this, we need to add a similar SOA
+          transaction query for the grandchild inside the greater one
+          of the child.
+
+          The only other option is to not support this case at all
+          (all records must be in the child solely).  So, how about
+          the following replacement text:
+
+          1.  Query for the child zone's SOA record
+
+          2.  Query for the child zone's CSYNC record
+
+          3.  Query for the child zone's data records, as required by the CSYNC
+              record's Type Bit Map field
+
+              *  Note: if any of the resulting records being queried are not
+                 authoritative within the child zone but rather in a grandchild
+                 or deeper, SOA record queries must be made for the
+                 grandchildren as well.
+
+          4.  Query for the collected SOA records again, starting with the
+              deepest and ending with the SOA of the child's.
+
+          If the SOA records from the first, middle and last steps for a given
+          zone have different serial numbers (for example, because the zone was
+          edited and republished during the interval between steps 1 and 4),
+          then the CSYNC record obtained in the second set SHOULD NOT be
+          processed (rapidly changing child zones may need special
+          consideration or processing).  The operation MAY be restarted or
+          retried in the future.
+
 ***** DUP Section 6: unfortunately code 61 was already registered for OPENPGPKEY.
         [ To be removed prior to publication: The CDS (59), CDNSKEY (60) and
         the CSYNC records are all conceptually similar - if the code-point 61

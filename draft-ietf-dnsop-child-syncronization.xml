@@ -327,17 +327,26 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	  <t>Query for the child zone's SOA record</t>
 	  <t>Query for the child zone's CSYNC record</t>
 	  <t>Query for the child zone's data records, as required by
-	  the CSYNC record's Type Bit Map field</t>
-	  <t>Query for the child zone's SOA record again</t>
+	  the CSYNC record's Type Bit Map field
+	  <list style="symbols">
+		  <t>Note: if any of the resulting records being queried are
+		  not authoritative within the child zone but rather in a
+		  grandchild or deeper, SOA record queries must be made for
+		  the grandchildren as well.</t>
+	  </list>
+	</t>
+	  <t>Query for the collected SOA records again, starting with
+	  the deepest and ending with the SOA of the child's.</t>
 	</list>
 	</t>
-	<t>If the SOA records from the first and last steps have
-	different serial numbers (for example, because the zone was
-	edited and republished during the interval between steps 1 and
-	4), then the CSYNC record obtained in the second set SHOULD
-	NOT be processed (rapidly changing child zones may need
-	special consideration or processing).  The operation MAY
-	be restarted or retried in the future.</t>
+	<t>If the SOA records from the first, middle and last steps
+	for a given zone have different serial numbers (for example,
+	because the zone was edited and republished during the
+	interval between steps 1 and 4), then the CSYNC record
+	obtained in the second set SHOULD NOT be processed (rapidly
+	changing child zones may need special consideration or
+	processing).  The operation MAY be restarted or retried in the
+	future.</t>
 
 	<t>If the soaminimum flag is set and the
         SOA serial numbers are equal but less than the CSYNC
@@ -533,6 +542,18 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	      query for the CSYNC record and can stop processing when
 	      it finds it missing.  This will reduce resource usage by
 	      both the child and the parental agent.</t>
+      </section>
+      <section title="Parent/Child/Grandchild Glue Synchronization">
+	      <t>When a child needs to publish a CSYNC record that
+	      synchronizes NS and A/AAAA glue records and the NS
+	      record is actually pointing to a child of the child (a
+	      grandchild of the parent), then it is critical that the
+	      glue records in the child point to the proper real
+	      addresses records published by the grandchild.  It is
+	      assumed that if a child is using a grandchild's
+	      nameserver that they must be in careful synchronization.
+	      Specifically, this specification requires this to be the
+	      case.</t>
       </section>
     </section>
     <section title="Security Considerations">
