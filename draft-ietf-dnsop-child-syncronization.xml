@@ -152,7 +152,7 @@
       target="RFC4035" />), of the CSYNC RRType data and MUST perform
       DNSSEC validation of any data to be copied from the Child to the
       Parent.  Parents MUST NOT process any data from any of these
-      records if any of the validation results indicate any anything
+      records if any of the validation results indicate anything
       other than "Secure" <xref target="RFC4034" /> or if any the
       required data can not be successfully retrieved.</t>
 

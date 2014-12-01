@@ -624,14 +624,19 @@
 
         Yep, this is already been taken care of due to an IANA comment.
 
-***** TODO Editorial nits
+***** DONE Editorial nits
        - Section 2: s/these/three/
         The CSYNC RRType contains, in its RDATA component, these parts: an
+        WJH: caught already
+
        - Section 2: s/Section Section/Section/ (there are several instances
          of this error)
         data is processed is described in Section Section 3.
+        WJH: caught already
+
        - Section 2: s/any anything/anything/ (?)
         if any of the validation results indicate any anything other than
+        WJH: new catch, thank you!
 
 * Notes from IESG review (-03)
 
