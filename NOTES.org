@@ -612,13 +612,15 @@
        "atomicity" of the operation that this section seems to seek by
        enclosing the whole set of queries with two SOA queries.
 
-     - Section 6: unfortunately code 61 was already registered for OPENPGPKEY.
+***** DUP Section 6: unfortunately code 61 was already registered for OPENPGPKEY.
         [ To be removed prior to publication: The CDS (59), CDNSKEY (60) and
         the CSYNC records are all conceptually similar - if the code-point 61
         happens to still be Unassigned when the IANA processes this, it would
         be nice if that could be used for this.]
 
-     - Editorial nits
+        Yep, this is already been taken care of due to an IANA comment.
+
+***** TODO Editorial nits
        - Section 2: s/these/three/
         The CSYNC RRType contains, in its RDATA component, these parts: an
        - Section 2: s/Section Section/Section/ (there are several instances
