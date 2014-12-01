@@ -623,8 +623,11 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
       parent/child relationships and synchronization.  Much of the
       work in this document is derived from the careful existing
       analysis of these three esteemed colleagues.  Thank you to the
-      following people who have contributed text to the document:
-      Matthijs Mekking and Petr Spacek.</t>
+      following people who have contributed text or detailed reviews
+      to the document (in no particular order): Matthijs Mekking, Petr
+      Spacek, 神明達哉, Pete Resnick, Joel Jaeggli, Brian Haberman,
+      Warren Kumari, Adrian Farrel, Alia Atlas, Barry Leiba, Richard
+      Barnes, Stephen Farrell, and Ted Lemon.</t>
 
       <t>A special thanks goes to Roy Arends, for taking the "bite out
       of that hamburger" challenge while discussing this document.</t>
