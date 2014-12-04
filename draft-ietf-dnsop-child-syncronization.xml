@@ -329,10 +329,16 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
 	  <t>Query for the child zone's data records, as required by
 	  the CSYNC record's Type Bit Map field
 	  <list style="symbols">
-		  <t>Note: if any of the resulting records being queried are
-		  not authoritative within the child zone but rather in a
-		  grandchild or deeper, SOA record queries must be made for
-		  the grandchildren as well.</t>
+		  <t>Note: if any of the resulting records being
+		  queried are not authoritative within the child zone
+		  but rather in a grandchild or deeper, SOA record
+		  queries must be made for the grandchildren.  This
+		  will require the parental agent to determine where
+		  the child/grandchild zone cuts occur.  Because of
+		  the additional operational complexity, parental
+		  agents MAY choose not to support this protocol with
+		  children making use of records that are
+		  authoritative in the grandchildren.</t>
 	  </list>
 	</t>
 	  <t>Query for the collected SOA records again, starting with

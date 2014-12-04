@@ -407,7 +407,7 @@
       
       + WH: done previously based on text, I think, from Warren if I recall.
 
-*** TODO 神明達哉
+*** DONE 神明達哉
 ***** DONE Section 1 (introduction), the first paragraph:
 
         This document specifies how a child zone in the DNS ([RFC1034],
@@ -586,7 +586,7 @@
 
        Section 4.2 already covers this the best we can, I think.
 
-***** TODO Section 4.3
+***** DONE Section 4.3
 
         Children deploying NS records pointing to domain-names within their
         own children (the "grandchildren") SHOULD ensure the grandchildren's
