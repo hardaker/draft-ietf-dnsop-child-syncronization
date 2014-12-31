@@ -749,7 +749,7 @@
       also "IETF Review", which requires an IETF stream RFC, but
       allows Informational or Experimental).
 
-      WJH: Changed to be standards-track
+      WJH: Changed to be standards-track (in -06)
 
 *** DONE Pete Resnick
 
