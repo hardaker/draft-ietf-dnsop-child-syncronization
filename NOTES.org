@@ -971,6 +971,32 @@
 
       Let me know if you think this is insufficient.
 
+      TL: 
+
+      Again, recollection is foggy, but e.g. what if some implementation
+      decides it would be clever to use child synchronization to update DS
+      records?  You say in the introduction that this document isn't
+      supposed to support doing that, but you don't explicitly exclude DS
+      records anywhere.  This concern is (IIRC) what triggered the comment.
+
+      WJH:
+
+      Due to some other comments, the following text was put into place and is
+      already in my (not yet published) document.  This exists in the security
+      considerations:
+
+         Thus, implementations of this protocol
+         MUST NOT use it to synchronize DS records, DNSKEY materials, CDS
+         records, CDNSKEY records, or CSYNC records.  Similarly, future
+         documents extending this protocol MUST NOT offer the ability to
+         synchronize DS, DNSKEY materials, CDS records, CDNSKEY records, or
+         CSYNC records.  For such a solution, please see the complimentary
+         solution [RFC7344] for maintaining security delegation information.
+
+      Does this (end-of-a) paragraph solve your problem?
+
+      TL: Yup, thanks.
+
 ***** DONE In 2.1.2, why SHOULD and not MUST here?
 
             Implementations that support parsing of presentation format
