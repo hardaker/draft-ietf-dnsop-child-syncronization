@@ -143,7 +143,7 @@ the title) for use on http://www.rfc-editor.org/search.
 		<t hangText="Child DNS operator:">  The entity that maintains and publishes the
 		zone information for the child DNS</t>
 
-		<t hangText="Parental agent:">  The entity that the child has relationship with,
+		<t hangText="Parental agent:">  The entity that the child has a relationship with,
 		to change its delegation information</t>
 
        </list>
@@ -526,7 +526,7 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
      than polling every child on a frequent basis.</t>
 
      <t>Children that wish to phase out a nameserver will need to
-     publish the CSYNC record to the nameserver being removed and
+     publish the CSYNC record to remove the nameserver and then
      wait for the parental agent to process the published record
      before turning off the service.  This is required because the
      child cannot control which nameserver in the existing NS set
