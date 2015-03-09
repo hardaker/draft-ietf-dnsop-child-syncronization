@@ -674,9 +674,6 @@ example.com. 3600 IN CSYNC 66 3 A NS AAAA
    </figure>
    </t>
 
-   <t>For new assignments to be made to this registry, a new
-   Standards Track RFC must be published via a Standards Action.</t>
-
 <!-- [rfced] These two sentences seem redundant. May one of them
 be removed? Or, would you like to combine them in some manner?
 
@@ -687,6 +684,7 @@ Current:
    For new assignments to be made to this registry, a new Standards
    Track RFC must be published via a Standards Action.
 -->
+<!-- WJH: removed the second -->
 
    </section>
 
