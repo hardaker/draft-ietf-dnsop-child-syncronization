@@ -39,6 +39,7 @@ Original:
 Current:
    Child-to-Parent Synchronization in DNS
 -->
+<!-- WJH: fine with me -->
 
    <author initials="W.H." surname="Hardaker" fullname="Wes Hardaker">
      <organization>Parsons, Inc.</organization>
@@ -155,6 +156,7 @@ the title) for use on http://www.rfc-editor.org/search.
      necessary.  Note that there is also one use of "Parent" instead of
      parent.
 -->
+<!-- fixed the references to be lower case of both inside sentences -->
 
    <section title="Definition of the CSYNC RRType" anchor="definitions">
      <t>The CSYNC RRType contains, in its RDATA component, these
@@ -178,15 +180,15 @@ the title) for use on http://www.rfc-editor.org/search.
      any changes to parental records at all.  Errors due to
      unsupported Type Bit Map bits, or otherwise nonpunishable data,
      SHALL result in no change to the parent zone's delegation
-     information for the Child.  Parental agents MUST ignore a
-     Child's CSYNC RDATA set if multiple CSYNC resource records are
+     information for the child.  Parental agents MUST ignore a
+     child's CSYNC RDATA set if multiple CSYNC resource records are
      found; only a single CSYNC record should ever be present.</t>
 
      <t>The parental agent MUST perform DNSSEC validation (<xref
      target="RFC4033" /> <xref target="RFC4034" /> <xref
      target="RFC4035" />), of the CSYNC RRType data and MUST perform
-     DNSSEC validation of any data to be copied from the Child to the
-     Parent.  Parents MUST NOT process any data from any of these
+     DNSSEC validation of any data to be copied from the child to the
+     parent.  Parents MUST NOT process any data from any of these
      records if any of the validation results indicate anything
      other than "Secure" <xref target="RFC4034" /> or if any the
      required data cannot be successfully retrieved.</t>
