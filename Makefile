@@ -1,4 +1,4 @@
-PREFIX=draft-ietf-dnsop-child-syncronization
+PREFIX=rfc7477
 VERSION=07
 
 #RFC=rfc6168
@@ -8,7 +8,8 @@ VERSION=07
 MONTH=`date +"%B"`
 YEAR=`date +"%Y"`
 
-OUT=$(PREFIX)-$(VERSION).txt
+OUT=$(PREFIX).txt
+#OUT=$(PREFIX)-$(VERSION).txt
 
 all:  $(OUT)
 
