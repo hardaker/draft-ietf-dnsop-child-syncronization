@@ -61,9 +61,12 @@ Current:
 <!-- [rfced] Please insert any keywords (beyond those that appear in 
 the title) for use on http://www.rfc-editor.org/search.
 -->
+<!-- WJH: I've added a few; this is a hard one to keyword-ize -->
 
-<keyword>example</keyword>
-
+<keyword>DNS</keyword>
+<keyword>Synchronization</keyword>
+<keyword>Resource Record</keyword>
+<keyword>Automation</keyword>
 
    <abstract>
      <t>This document specifies how a child zone in the DNS can publish a
